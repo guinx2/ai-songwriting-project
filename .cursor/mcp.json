@@ -1,0 +1,11 @@
+{
+	"mcpServers": {
+		"task-master-ai": {
+			"command": "node",
+			"args": ["/home/guinx2/.nvm/versions/node/v20.19.3/lib/node_modules/task-master-ai/mcp-server/server.js"],
+			"env": {
+				"ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
+			}
+		}
+	}
+} 
