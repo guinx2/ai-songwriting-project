@@ -1,0 +1,27 @@
+# Task ID: 7
+# Title: Implement Artist Style Database and Recognition System
+# Status: pending
+# Dependencies: 6
+# Priority: medium
+# Description: Build artist-specific style recognition and generation system with country-based genre variations for personalized MIDI creation
+# Details:
+Create artist_styles table with style characteristics, influence scores, and notable techniques. Implement country-specific genre variants (K-pop, J-rock, UK drill, etc.). Create artist style analysis system that can generate MIDI in specific artist styles. Add song title generation patterns based on artist and genre combinations.
+
+Pseudo-code:
+```python
+class ArtistStyleManager:
+    def get_artist_style(self, artist_name: str) -> Dict
+    def apply_artist_style(self, base_params: MusicParams, artist: str) -> MusicParams
+    def get_country_variants(self, base_genre: str, country: str) -> List[str]
+
+class SongTitleGenerator:
+    def generate_titles(self, params: MusicParams, artist: str = None) -> List[str]
+    def get_title_patterns(self, genre: str, mood: str) -> List[str]
+
+# Example usage:
+# "지코 스타일 트랩" -> applies Zico's flow patterns and Korean trap characteristics
+# "ONE OK ROCK 스타일 J락" -> applies J-rock emotional progression patterns
+```
+
+# Test Strategy:
+Test artist style application with known artist characteristics. Validate country-specific genre variations. Test song title generation for different genres and moods. Verify style consistency across multiple generations.

@@ -1,0 +1,118 @@
+# AI 작곡 프로젝트 PRD (Product Requirements Document)
+
+## Overview
+AI 기반 작곡 시스템을 개발하여 사용자가 쉽게 음악을 창작할 수 있도록 지원합니다. 이 시스템은 음악 이론을 기반으로 MIDI 파일을 생성하고, 다양한 AI 모델을 활용하여 창의적인 음악 작품을 만들어냅니다.
+
+## Core Features
+
+### 1. AI 음악 생성 엔진
+- 다양한 AI 모델을 통한 멜로디 생성 (Transformer, RNN 기반)
+- 장르별 특성을 반영한 작곡 (클래식, 재즈, 팝, 일렉트로닉, 락, 힙합, Jpop 등)
+- 화성 진행 자동 생성 및 최적화
+- 악기별/트랙별 개별 생성 (드럼, 베이스, 리드, 패드, 아르페지오 등)
+
+### 2. 음악 이론 모듈
+- 코드 진행 분석 및 제안
+- 스케일과 모드 기반 멜로디 생성
+- 리듬 패턴 생성 및 변형
+
+### 3. MIDI 생성 및 편집
+- 고품질 MIDI 파일 출력
+- 다중 트랙 지원 (멜로디, 베이스, 드럼, 화성)
+- 악기별 개별 트랙 생성 및 편집
+- Ableton Live 연동 및 호환성
+- 실시간 재생 및 편집 기능
+
+### 4. 사용자 인터페이스
+- 직관적인 웹 기반 인터페이스
+- 음악 파라미터 조정 (템포, 키, 분위기, 장르 등)
+- 악기별 개별 생성 및 조정 기능
+- 생성된 음악 미리보기 및 다운로드
+- Ableton Live 프로젝트 파일 (.als) 내보내기
+
+## Technical Architecture
+
+### 시스템 구성요소
+- **Backend**: Python Flask/FastAPI 서버
+- **AI Models**: TensorFlow/PyTorch 기반 음악 생성 모델
+- **Frontend**: React 기반 웹 인터페이스
+- **Audio Processing**: LibROSA, Music21 라이브러리
+- **Database**: SQLite/PostgreSQL (사용자 작품 저장)
+
+### 데이터 모델
+- User: 사용자 정보 및 설정
+- Composition: 생성된 음악 작품 메타데이터
+- MidiFile: MIDI 파일 데이터 및 경로
+- GenerationParams: 생성 파라미터 설정
+
+### APIs 및 통합
+- RESTful API 설계
+- MIDI 파일 처리 API
+- AI 모델 추론 API
+- 악기별 트랙 생성 API
+- Ableton Live 프로젝트 파일 생성 API
+- 사용자 인증 및 세션 관리
+
+## Development Roadmap
+
+### Phase 1: MVP (최소 기능 제품)
+- 기본 AI 멜로디 생성 (단일 트랙)
+- 간단한 웹 인터페이스
+- MIDI 파일 출력 기능
+- 기본 음악 이론 모듈 (스케일, 코드)
+
+### Phase 2: 고급 기능
+- 다중 트랙 생성 (멜로디 + 화성)
+- 장르별 스타일 적용 (락, 힙합, Jpop 포함)
+- 악기별 개별 트랙 생성 (드럼, 베이스, 신디사이저 등)
+- 리듬 패턴 생성
+- Ableton Live 연동 기능
+- 사용자 설정 저장 기능
+
+### Phase 3: 완성형
+- 고급 AI 모델 통합
+- 실시간 편집 기능
+- 오디오 출력 지원 (MIDI → WAV/MP3)
+- 사용자 커뮤니티 기능
+
+## Logical Dependency Chain
+
+1. **Foundation Layer**: 프로젝트 구조 설정, 의존성 설치
+2. **Music Theory Core**: 기본 음악 이론 모듈 구현
+3. **AI Model Integration**: 기본 AI 음악 생성 모델 구현
+4. **MIDI Generation**: MIDI 파일 생성 및 처리 모듈
+5. **Backend API**: Flask/FastAPI 서버 구축
+6. **Frontend Interface**: React 기반 사용자 인터페이스
+7. **Integration & Testing**: 전체 시스템 통합 및 테스트
+
+## Risks and Mitigations
+
+### 기술적 도전
+- **위험**: AI 모델 성능 최적화의 어려움
+- **완화**: 사전 훈련된 모델 활용 및 점진적 개선
+
+### MVP 구현
+- **위험**: 기능 범위가 너무 클 수 있음
+- **완화**: 핵심 기능에 집중하여 단계적 개발
+
+### 리소스 제약
+- **위험**: 개발 시간 및 컴퓨팅 리소스 부족
+- **완화**: 클라우드 서비스 활용 및 효율적인 모델 선택
+
+## Appendix
+
+### 참고 라이브러리
+- Music21: 음악 분석 및 생성
+- LibROSA: 오디오 신호 처리
+- TensorFlow/PyTorch: AI 모델 구현
+- Flask/FastAPI: 웹 서버 프레임워크
+- React: 프론트엔드 개발
+- Python-rtmidi: MIDI 실시간 처리
+- Ableton Live API (Max for Live): DAW 연동
+
+### 데이터셋 고려사항
+- MIDI 파일 데이터셋 (Classical, Jazz, Pop, Rock, Hip-hop, J-pop)
+- 악기별 연주 패턴 데이터셋
+- 음악 이론 규칙 데이터베이스
+- Ableton Live 템플릿 및 프리셋 데이터
+- 사용자 선호도 데이터 수집 방안 

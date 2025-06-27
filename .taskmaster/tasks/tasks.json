@@ -1,0 +1,219 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Setup Core Project Architecture and LLM Provider System",
+        "description": "Initialize the project structure with modular LLM provider architecture supporting Claude, EXAONE 3.5, and GPT-4 APIs for natural language prompt analysis",
+        "details": "Create Python project with virtual environment, install dependencies (anthropic, openai, requests). Implement abstract LLMProvider base class and concrete providers (ClaudeProvider, ExaoneProvider, GPTProvider) using provider pattern. Setup configuration management for API keys and model parameters. Create MusicParams dataclass for structured music parameter representation.\n\nPseudo-code:\n```python\nclass LLMProvider(ABC):\n    @abstractmethod\n    def analyze_prompt(self, prompt: str) -> MusicParams\n\nclass ClaudeProvider(LLMProvider):\n    def __init__(self, api_key: str)\n    def analyze_prompt(self, prompt: str) -> MusicParams\n\nclass ExaoneProvider(LLMProvider):\n    def __init__(self, api_key: str)\n    def analyze_prompt(self, prompt: str) -> MusicParams\n```",
+        "testStrategy": "Unit tests for each provider with mock API responses. Integration tests with actual API calls using test prompts. Validate MusicParams extraction accuracy and provider switching functionality.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Initialize Python Project Structure and Dependencies",
+            "description": "Create project directory structure, set up virtual environment, and install required dependencies",
+            "dependencies": [],
+            "details": "Create main project directory with src/, tests/, docs/ folders. Initialize git repository and .gitignore. Set up Python virtual environment (venv). Create requirements.txt with anthropic, openai, requests, pydantic, python-dotenv. Install all dependencies. Create __init__.py files for proper module structure.\n<info added on 2025-06-27T01:24:49.255Z>\n프로젝트 구조 설정 완료:\n✅ 새로운 디렉토리 구조 생성: src/llm_providers, src/core, src/data_models, src/config\n✅ __init__.py 파일들 생성으로 모듈 구조 설정\n✅ requirements.txt에 LLM Provider 라이브러리 추가: anthropic, openai, httpx, tiktoken\n✅ 가상환경에서 새로운 의존성 설치 완료\n✅ .env 파일에 LLM Provider API 키 설정 추가 (Claude, OpenAI, EXAONE)\n✅ 기본 설정 추가: DEFAULT_LLM_PROVIDER, MAX_TOKENS, TEMPERATURE\n\n다음 단계: MusicParams 데이터 모델 구현 준비 완료\n</info added on 2025-06-27T01:24:49.255Z>",
+            "status": "done",
+            "testStrategy": "Verify virtual environment activation, check all dependencies are installed with correct versions, ensure project structure follows Python best practices"
+          },
+          {
+            "id": 2,
+            "title": "Create MusicParams Data Model and Configuration System",
+            "description": "Implement MusicParams dataclass for structured music parameter representation and configuration management",
+            "dependencies": [
+              1
+            ],
+            "details": "Create models.py with MusicParams dataclass using Pydantic for validation. Include fields: genre, mood, tempo, key, time_signature, instruments, duration, style_descriptors. Implement config.py for environment variable management using python-dotenv. Create .env.example template. Add configuration class for API keys and model parameters with validation.\n<info added on 2025-06-27T01:36:55.373Z>\nMusicParams 데이터 모델과 설정 시스템 구현 완료:\n\n✅ MusicParams 데이터 모델 구현 완료\n- 3단계 장르 시스템 지원 (genre/sub_genre/style_variant)\n- 아티스트 기반 생성 지원 (artist_reference, country)\n- 모든 필수 필드와 Enum 클래스들 정의\n- Pydantic 검증 로직 구현\n- 유틸리티 메서드 (to_filename, to_genre_path, get_summary)\n\n✅ 설정 관리 시스템 구현 완료\n- LLMProviderSettings: 다중 LLM Provider 지원\n- DatabaseSettings: 데이터베이스 설정\n- MIDISettings: MIDI 생성 및 출력 설정\n- LoggingSettings: 로깅 설정\n- 환경 변수 자동 로드 및 검증\n\n✅ Pydantic V2 호환성 수정\n- pydantic-settings 패키지 설치\n- BaseSettings import 수정\n- Config 클래스에 extra='ignore' 설정\n- json_schema_extra 사용\n\n✅ .env.example 템플릿 파일 생성\n- 모든 환경 변수 설명과 예시 포함\n- LLM Provider API 키 설정 가이드\n- 각 설정 섹션별 상세 설명\n\n✅ 테스트 완료\n- MusicParams 객체 생성 및 메서드 테스트 성공\n- Settings 로드 및 검증 테스트 성공\n- 모든 프로바이더(claude, openai, exaone) 감지 확인\n\n다음 단계: Abstract LLMProvider Base Class 구현 준비 완료\n</info added on 2025-06-27T01:36:55.373Z>",
+            "status": "done",
+            "testStrategy": "Unit tests for MusicParams validation, test configuration loading from environment variables, verify default values and error handling"
+          },
+          {
+            "id": 3,
+            "title": "Implement Abstract LLMProvider Base Class",
+            "description": "Design and implement the abstract base class for LLM providers using ABC pattern",
+            "dependencies": [
+              2
+            ],
+            "details": "Create providers/base.py with abstract LLMProvider class. Define abstract method analyze_prompt(prompt: str) -> MusicParams. Add common utilities: prompt templating, response parsing, error handling base methods. Include provider configuration attributes (model_name, temperature, max_tokens). Implement logging setup for providers.",
+            "status": "pending",
+            "testStrategy": "Test abstract class cannot be instantiated directly, verify inheritance works correctly, test common utility methods"
+          },
+          {
+            "id": 4,
+            "title": "Implement Claude Provider with Anthropic API",
+            "description": "Create concrete implementation of LLMProvider for Claude using Anthropic API",
+            "dependencies": [
+              3
+            ],
+            "details": "Create providers/claude_provider.py implementing ClaudeProvider. Initialize with Anthropic client using API key from config. Implement analyze_prompt method with proper prompt engineering for music parameter extraction. Handle Claude-specific response format and parse to MusicParams. Add retry logic and error handling for API calls. Use Claude-3-sonnet model with appropriate temperature settings.",
+            "status": "pending",
+            "testStrategy": "Mock Anthropic API responses for unit tests, test prompt formatting, verify MusicParams parsing from Claude responses, test error handling scenarios"
+          },
+          {
+            "id": 5,
+            "title": "Implement EXAONE and GPT-4 Providers",
+            "description": "Create concrete implementations for EXAONE 3.5 and GPT-4 providers following the established pattern",
+            "dependencies": [
+              3
+            ],
+            "details": "Create providers/exaone_provider.py for EXAONE 3.5 integration using requests library for API calls. Implement custom request handling for EXAONE API endpoints. Create providers/gpt_provider.py using OpenAI client for GPT-4. Implement analyze_prompt for both providers with model-specific prompt optimization. Ensure consistent MusicParams output across all providers. Add provider-specific configuration options.",
+            "status": "pending",
+            "testStrategy": "Mock API responses for both providers, test consistency of MusicParams output across providers, verify error handling and retry logic, integration tests with actual APIs using test prompts"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Implement Music Parameter System and Prompt Engineering Engine",
+        "description": "Create comprehensive music parameter extraction system that converts natural language prompts into structured musical parameters including genre hierarchy, instruments, and song parts",
+        "details": "Implement MusicParams dataclass with all required fields (instrument, song_part, genre, sub_genre, style_variant, mood, tempo, key, time_signature, complexity, duration, energy_level). Create prompt engineering templates for each LLM provider to ensure consistent parameter extraction. Implement validation logic for musical parameters (valid keys, tempo ranges, time signatures).\n\nPseudo-code:\n```python\n@dataclass\nclass MusicParams:\n    instrument: str\n    song_part: str  # intro, verse, chorus, bridge, outro\n    genre: str\n    sub_genre: str\n    style_variant: str\n    mood: str\n    tempo: int\n    key: str\n    time_signature: str\n    complexity: str\n    duration: str\n    energy_level: str\n\nclass PromptEngineer:\n    def create_analysis_prompt(self, user_prompt: str) -> str\n    def validate_params(self, params: MusicParams) -> bool\n```",
+        "testStrategy": "Test parameter extraction with various natural language inputs. Validate genre hierarchy mapping accuracy. Test edge cases with incomplete or ambiguous prompts. Verify parameter validation logic with invalid inputs.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Build Database Schema and Genre Hierarchy System",
+        "description": "Implement the 3-tier genre classification system with database schema for training data, artist styles, and hierarchical genre relationships",
+        "details": "Create PostgreSQL database with tables for genres (3-level hierarchy), training_dataset, artist_styles, country_genre_variants, and song_title_patterns. Implement genre hierarchy navigation and validation. Create data models using SQLAlchemy ORM. Setup database migrations and seed data for major genres (Hip-hop→Trap→Melodic Trap, Rock→J-Rock→Shibuya-kei, etc.).\n\nPseudo-code:\n```python\nclass Genre(Base):\n    __tablename__ = 'genres'\n    id = Column(Integer, primary_key=True)\n    name = Column(String(100))\n    parent_id = Column(Integer, ForeignKey('genres.id'))\n    level = Column(Integer)  # 1=main, 2=sub, 3=style\n    characteristics = Column(JSON)\n\nclass TrainingDataset(Base):\n    __tablename__ = 'training_dataset'\n    id = Column(UUID, primary_key=True)\n    artist_name = Column(String(200))\n    country = Column(String(100))\n    genre_level_1 = Column(String(100))\n    # ... other fields\n```",
+        "testStrategy": "Test database schema creation and migrations. Validate genre hierarchy queries and navigation. Test data insertion and retrieval with sample genre data. Verify foreign key constraints and data integrity.",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Develop Core MIDI Generation Engine for Drums",
+        "description": "Implement the foundational MIDI generation engine starting with drum pattern generation using mido and music21 libraries",
+        "details": "Install and configure mido, pretty_midi, and music21 libraries. Create DrumGenerator class with genre-specific pattern generation for boom-bap, trap, and other hip-hop styles. Implement 4-bar snippet generation with proper MIDI formatting (480 ticks per quarter note, Standard MIDI File Format 1). Create drum mapping for kick, snare, hi-hat, and percussion elements.\n\nPseudo-code:\n```python\nclass DrumGenerator:\n    def __init__(self):\n        self.drum_map = {\n            'kick': 36, 'snare': 38, 'hihat': 42,\n            'open_hihat': 46, 'crash': 49\n        }\n    \n    def generate_pattern(self, params: MusicParams) -> mido.MidiFile:\n        mid = mido.MidiFile()\n        track = mido.MidiTrack()\n        # Generate 4-bar drum pattern based on genre\n        return mid\n    \n    def create_boom_bap_pattern(self, tempo: int) -> List[MidiMessage]\n    def create_trap_pattern(self, tempo: int) -> List[MidiMessage]\n```",
+        "testStrategy": "Generate test MIDI files for different drum patterns and validate in DAW (Ableton Live/Logic Pro). Test tempo accuracy, note timing, and MIDI file format compliance. Verify 4-bar loop seamlessness and genre-appropriate patterns.",
+        "priority": "high",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Extend MIDI Generation to Bass, Harmony, and Melody Instruments",
+        "description": "Expand the MIDI generation engine to support bass lines, harmonic instruments (piano, guitar), and melodic elements with music theory integration",
+        "details": "Create BassGenerator, HarmonyGenerator, and MelodyGenerator classes. Implement music theory rules using music21 for chord progressions, scale generation, and harmonic relationships. Add support for different instrument ranges and playing techniques. Integrate with genre-specific patterns and ensure musical coherence across different instruments.\n\nPseudo-code:\n```python\nclass BassGenerator:\n    def generate_bassline(self, params: MusicParams) -> mido.MidiFile:\n        # Generate bass patterns following chord progressions\n        pass\n\nclass HarmonyGenerator:\n    def generate_chords(self, params: MusicParams) -> mido.MidiFile:\n        # Generate piano/guitar chord progressions\n        pass\n\nclass MelodyGenerator:\n    def generate_melody(self, params: MusicParams) -> mido.MidiFile:\n        # Generate melodic lines and hooks\n        pass\n\nclass MIDIGenerator:\n    def __init__(self):\n        self.drum_gen = DrumGenerator()\n        self.bass_gen = BassGenerator()\n        self.harmony_gen = HarmonyGenerator()\n        self.melody_gen = MelodyGenerator()\n```",
+        "testStrategy": "Test each instrument generator independently and in combination. Validate music theory compliance (proper chord progressions, scale adherence). Test cross-instrument harmony and ensure no note conflicts. Verify instrument-specific MIDI channel assignments.",
+        "priority": "high",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Create Snippet Management and File Output System",
+        "description": "Implement the 4-bar snippet management system with structured file output, metadata generation, and library organization",
+        "details": "Create SnippetManager class for saving, loading, and organizing 4-bar MIDI snippets. Implement file naming conventions (e.g., 'dark_boombap_intro_85bpm.mid'). Generate JSON metadata files with generation parameters, quality metrics, and usage tracking. Create directory structure for snippet library organization by module type (intro, verse, chorus, etc.).\n\nPseudo-code:\n```python\n@dataclass\nclass SnippetMetadata:\n    id: str\n    filename: str\n    module_type: str\n    instruments: List[str]\n    genre_path: str\n    tempo: int\n    key: str\n    quality_score: float\n    personal_rating: int\n    usage_count: int\n    tags: List[str]\n    created_at: datetime\n\nclass SnippetManager:\n    def save_snippet(self, midi_data: bytes, metadata: SnippetMetadata) -> str\n    def load_snippet(self, snippet_id: str) -> Tuple[bytes, SnippetMetadata]\n    def search_snippets(self, filters: Dict) -> List[SnippetMetadata]\n    def create_variation(self, base_id: str, params: Dict) -> str\n```",
+        "testStrategy": "Test snippet saving and loading with various MIDI files. Validate metadata generation and JSON serialization. Test search functionality with different filter criteria. Verify file organization and naming conventions.",
+        "priority": "medium",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Implement Artist Style Database and Recognition System",
+        "description": "Build artist-specific style recognition and generation system with country-based genre variations for personalized MIDI creation",
+        "details": "Create artist_styles table with style characteristics, influence scores, and notable techniques. Implement country-specific genre variants (K-pop, J-rock, UK drill, etc.). Create artist style analysis system that can generate MIDI in specific artist styles. Add song title generation patterns based on artist and genre combinations.\n\nPseudo-code:\n```python\nclass ArtistStyleManager:\n    def get_artist_style(self, artist_name: str) -> Dict\n    def apply_artist_style(self, base_params: MusicParams, artist: str) -> MusicParams\n    def get_country_variants(self, base_genre: str, country: str) -> List[str]\n\nclass SongTitleGenerator:\n    def generate_titles(self, params: MusicParams, artist: str = None) -> List[str]\n    def get_title_patterns(self, genre: str, mood: str) -> List[str]\n\n# Example usage:\n# \"지코 스타일 트랩\" -> applies Zico's flow patterns and Korean trap characteristics\n# \"ONE OK ROCK 스타일 J락\" -> applies J-rock emotional progression patterns\n```",
+        "testStrategy": "Test artist style application with known artist characteristics. Validate country-specific genre variations. Test song title generation for different genres and moods. Verify style consistency across multiple generations.",
+        "priority": "medium",
+        "dependencies": [
+          6
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Build Web-Based Data Management Interface",
+        "description": "Create a web interface for manual data verification, artist information management, and training dataset quality control",
+        "details": "Build Flask/FastAPI web application with forms for data verification. Create interfaces for editing artist information, genre classifications, and quality scores. Implement batch editing capabilities and verification progress tracking. Add data export/import functionality for training dataset management.\n\nPseudo-code:\n```python\nfrom flask import Flask, render_template, request, jsonify\n\napp = Flask(__name__)\n\n@app.route('/data-verification')\ndef data_verification():\n    unverified_data = get_unverified_training_data()\n    return render_template('verification.html', data=unverified_data)\n\n@app.route('/verify-data', methods=['POST'])\ndef verify_data():\n    data_id = request.json['id']\n    corrections = request.json['corrections']\n    update_training_data(data_id, corrections)\n    return jsonify({'status': 'success'})\n\n@app.route('/artist-management')\ndef artist_management():\n    artists = get_all_artists()\n    return render_template('artists.html', artists=artists)\n```",
+        "testStrategy": "Test web interface functionality with sample data. Validate form submissions and data updates. Test batch operations and progress tracking. Verify data integrity after manual edits.",
+        "priority": "medium",
+        "dependencies": [
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Develop Song Composition and Timeline System",
+        "description": "Create the modular song composition system that allows combining 4-bar snippets into complete song structures with automatic transitions",
+        "details": "Implement SongComposer class for combining snippets into full songs. Create timeline management with drag-and-drop functionality. Add automatic BPM and key matching between sections. Implement fade-in/fade-out transitions and volume control. Support export to DAW formats (.als, .flp, .logic).\n\nPseudo-code:\n```python\n@dataclass\nclass SongStructure:\n    title: str\n    sections: List[SongSection]\n    total_duration: float\n    bpm_changes: List[Tuple[float, int]]\n    key_changes: List[Tuple[float, str]]\n\n@dataclass\nclass SongSection:\n    start_time: float\n    end_time: float\n    snippet_id: str\n    module_type: str\n    fade_in: float = 0.0\n    fade_out: float = 0.0\n    volume: float = 1.0\n\nclass SongComposer:\n    def create_song(self, snippet_ids: List[str]) -> SongStructure\n    def add_transitions(self, song: SongStructure) -> SongStructure\n    def export_to_daw(self, song: SongStructure, format: str) -> str\n```",
+        "testStrategy": "Test song creation with various snippet combinations. Validate timeline calculations and section transitions. Test DAW export functionality with Ableton Live and Logic Pro. Verify BPM and key transition smoothness.",
+        "priority": "medium",
+        "dependencies": [
+          8
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Implement Quality Assessment and Recommendation System",
+        "description": "Create automated quality assessment for generated MIDI snippets and intelligent recommendation system for similar or complementary snippets",
+        "details": "Develop quality metrics system evaluating musical coherence, genre accuracy, rhythm complexity, and DAW compatibility. Implement recommendation engine suggesting similar snippets or variations. Add user rating system and usage tracking for personalized recommendations.\n\nPseudo-code:\n```python\nclass QualityAssessor:\n    def assess_snippet(self, midi_file: str, params: MusicParams) -> Dict[str, float]:\n        metrics = {\n            'musical_coherence': self.check_musical_coherence(midi_file),\n            'genre_accuracy': self.check_genre_accuracy(midi_file, params),\n            'rhythm_complexity': self.analyze_rhythm_complexity(midi_file),\n            'daw_compatibility': self.check_daw_compatibility(midi_file),\n            'loop_seamlessness': self.check_loop_quality(midi_file)\n        }\n        return metrics\n\nclass RecommendationEngine:\n    def get_similar_snippets(self, snippet_id: str) -> List[SnippetMetadata]\n    def get_complementary_snippets(self, current_snippets: List[str]) -> List[SnippetMetadata]\n    def update_user_preferences(self, snippet_id: str, rating: int)\n```",
+        "testStrategy": "Test quality assessment with various MIDI files and validate metric accuracy. Test recommendation system with different user preferences. Verify rating system updates and preference learning. Compare recommendations with manual expert evaluation.",
+        "priority": "medium",
+        "dependencies": [
+          9
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "Create Caching and Performance Optimization System",
+        "description": "Implement caching mechanisms for LLM responses, generated patterns, and performance optimizations for batch processing",
+        "details": "Add Redis caching for LLM API responses to reduce costs and improve response times. Implement MIDI pattern caching for frequently requested combinations. Create batch processing system for multiple snippet generation. Add async processing capabilities for non-blocking operations.\n\nPseudo-code:\n```python\nimport redis\nimport asyncio\nfrom functools import wraps\n\nclass CacheManager:\n    def __init__(self):\n        self.redis_client = redis.Redis(host='localhost', port=6379, db=0)\n    \n    def cache_llm_response(self, prompt_hash: str, response: dict, ttl: int = 3600):\n        self.redis_client.setex(prompt_hash, ttl, json.dumps(response))\n    \n    def get_cached_response(self, prompt_hash: str) -> dict:\n        cached = self.redis_client.get(prompt_hash)\n        return json.loads(cached) if cached else None\n\nclass BatchProcessor:\n    async def generate_multiple_snippets(self, prompts: List[str]) -> List[GenerationResult]\n        tasks = [self.generate_snippet_async(prompt) for prompt in prompts]\n        return await asyncio.gather(*tasks)\n```",
+        "testStrategy": "Test caching functionality with repeated requests. Measure performance improvements with cache hits. Test batch processing with multiple concurrent requests. Validate async operations and error handling.",
+        "priority": "low",
+        "dependencies": [
+          10
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 12,
+        "title": "Build REST API and Web Interface",
+        "description": "Create comprehensive REST API endpoints and user-friendly web interface for MIDI generation, snippet management, and song composition",
+        "details": "Build FastAPI application with endpoints for snippet generation, library management, and song composition. Create React/Vue.js frontend with drag-and-drop timeline, snippet browser, and real-time generation progress. Implement WebSocket for real-time updates and audio preview functionality.\n\nPseudo-code:\n```python\nfrom fastapi import FastAPI, WebSocket\nfrom fastapi.responses import FileResponse\n\napp = FastAPI()\n\n@app.post('/api/generate-snippet')\nasync def generate_snippet(request: GenerationRequest):\n    result = await midi_generator.generate(request.prompt)\n    return {'snippet_id': result.id, 'file_path': result.midi_file}\n\n@app.get('/api/snippets')\nasync def list_snippets(filters: SnippetFilters = None):\n    snippets = snippet_manager.search_snippets(filters)\n    return {'snippets': snippets}\n\n@app.post('/api/compose-song')\nasync def compose_song(request: SongCompositionRequest):\n    song = song_composer.create_song(request.snippet_ids)\n    return {'song_id': song.id, 'timeline': song.sections}\n\n@app.websocket('/ws/generation-progress')\nasync def websocket_endpoint(websocket: WebSocket):\n    await websocket.accept()\n    # Send real-time generation progress updates\n```",
+        "testStrategy": "Test all API endpoints with various request types. Validate file upload/download functionality. Test WebSocket connections and real-time updates. Perform load testing with concurrent users. Test frontend integration and user workflows.",
+        "priority": "low",
+        "dependencies": [
+          11
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-25T03:10:06.828Z",
+      "updated": "2025-06-27T01:37:08.572Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

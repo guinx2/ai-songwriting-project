@@ -1,0 +1,39 @@
+# Task ID: 12
+# Title: Build REST API and Web Interface
+# Status: pending
+# Dependencies: 11
+# Priority: low
+# Description: Create comprehensive REST API endpoints and user-friendly web interface for MIDI generation, snippet management, and song composition
+# Details:
+Build FastAPI application with endpoints for snippet generation, library management, and song composition. Create React/Vue.js frontend with drag-and-drop timeline, snippet browser, and real-time generation progress. Implement WebSocket for real-time updates and audio preview functionality.
+
+Pseudo-code:
+```python
+from fastapi import FastAPI, WebSocket
+from fastapi.responses import FileResponse
+
+app = FastAPI()
+
+@app.post('/api/generate-snippet')
+async def generate_snippet(request: GenerationRequest):
+    result = await midi_generator.generate(request.prompt)
+    return {'snippet_id': result.id, 'file_path': result.midi_file}
+
+@app.get('/api/snippets')
+async def list_snippets(filters: SnippetFilters = None):
+    snippets = snippet_manager.search_snippets(filters)
+    return {'snippets': snippets}
+
+@app.post('/api/compose-song')
+async def compose_song(request: SongCompositionRequest):
+    song = song_composer.create_song(request.snippet_ids)
+    return {'song_id': song.id, 'timeline': song.sections}
+
+@app.websocket('/ws/generation-progress')
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    # Send real-time generation progress updates
+```
+
+# Test Strategy:
+Test all API endpoints with various request types. Validate file upload/download functionality. Test WebSocket connections and real-time updates. Perform load testing with concurrent users. Test frontend integration and user workflows.

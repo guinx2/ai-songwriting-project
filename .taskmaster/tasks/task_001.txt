@@ -1,0 +1,26 @@
+# Task ID: 1
+# Title: Setup Core Project Architecture and LLM Provider System
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Initialize the project structure with modular LLM provider architecture supporting Claude, EXAONE 3.5, and GPT-4 APIs for natural language prompt analysis
+# Details:
+Create Python project with virtual environment, install dependencies (anthropic, openai, requests). Implement abstract LLMProvider base class and concrete providers (ClaudeProvider, ExaoneProvider, GPTProvider) using provider pattern. Setup configuration management for API keys and model parameters. Create MusicParams dataclass for structured music parameter representation.
+
+Pseudo-code:
+```python
+class LLMProvider(ABC):
+    @abstractmethod
+    def analyze_prompt(self, prompt: str) -> MusicParams
+
+class ClaudeProvider(LLMProvider):
+    def __init__(self, api_key: str)
+    def analyze_prompt(self, prompt: str) -> MusicParams
+
+class ExaoneProvider(LLMProvider):
+    def __init__(self, api_key: str)
+    def analyze_prompt(self, prompt: str) -> MusicParams
+```
+
+# Test Strategy:
+Unit tests for each provider with mock API responses. Integration tests with actual API calls using test prompts. Validate MusicParams extraction accuracy and provider switching functionality.
