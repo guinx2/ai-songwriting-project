@@ -1,0 +1,33 @@
+# Task ID: 2
+# Title: Implement Music Parameter System and Prompt Engineering Engine
+# Status: pending
+# Dependencies: 1
+# Priority: high
+# Description: Create comprehensive music parameter extraction system that converts natural language prompts into structured musical parameters including genre hierarchy, instruments, and song parts
+# Details:
+Implement MusicParams dataclass with all required fields (instrument, song_part, genre, sub_genre, style_variant, mood, tempo, key, time_signature, complexity, duration, energy_level). Create prompt engineering templates for each LLM provider to ensure consistent parameter extraction. Implement validation logic for musical parameters (valid keys, tempo ranges, time signatures).
+
+Pseudo-code:
+```python
+@dataclass
+class MusicParams:
+    instrument: str
+    song_part: str  # intro, verse, chorus, bridge, outro
+    genre: str
+    sub_genre: str
+    style_variant: str
+    mood: str
+    tempo: int
+    key: str
+    time_signature: str
+    complexity: str
+    duration: str
+    energy_level: str
+
+class PromptEngineer:
+    def create_analysis_prompt(self, user_prompt: str) -> str
+    def validate_params(self, params: MusicParams) -> bool
+```
+
+# Test Strategy:
+Test parameter extraction with various natural language inputs. Validate genre hierarchy mapping accuracy. Test edge cases with incomplete or ambiguous prompts. Verify parameter validation logic with invalid inputs.

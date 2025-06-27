@@ -1,0 +1,807 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 2,
+        "title": "Dataset Preparation and Model Training Infrastructure",
+        "description": "Prepare comprehensive MIDI datasets and establish model training infrastructure for AI music generation",
+        "priority": "critical",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "MIDI Dataset Collection and Curation",
+            "description": "Collect and organize genre-specific MIDI datasets from various sources",
+            "details": "Gather MIDI files from public domains (Lakh MIDI Dataset, MAESTRO), organize by genre/mood/tempo, create metadata annotations, implement data validation and cleaning pipeline"
+          },
+          {
+            "id": 2,
+            "title": "Model Training Pipeline Setup",
+            "description": "Establish TensorFlow/PyTorch training infrastructure with GPU support",
+            "details": "Configure CUDA environment, implement distributed training support, create model checkpointing system, setup TensorBoard monitoring"
+          },
+          {
+            "id": 3,
+            "title": "Music Quality Evaluation Metrics",
+            "description": "Develop objective and subjective evaluation metrics for generated music",
+            "details": "Implement musical coherence scoring, harmonic progression validation metrics, rhythm consistency measurement, create A/B testing framework"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Text Prompt Analysis Module",
+        "description": "Create a natural language processing module to parse text prompts and extract musical parameters including genre, mood, tempo, and key information",
+        "details": "Develop the GenreAnalyzer and related components to process text prompts. Implement NLP techniques to identify musical attributes from user input. Support parsing of explicit parameters (e.g., '120 BPM', 'C major') and implicit descriptions (e.g., 'upbeat summer vibes'). Create a robust parameter extraction system that maps text descriptions to musical values.",
+        "testStrategy": "Create unit tests with diverse prompt examples covering edge cases. Validate parameter extraction accuracy against a labeled dataset of music descriptions. Test integration with the MIDI generation pipeline.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement NLP Tokenization and Text Processing",
+            "description": "Build the core text processing engine for tokenizing and parsing music-related text prompts",
+            "dependencies": [],
+            "details": "Create tokenization system for musical text, implement stemming/lemmatization for music terms, build vocabulary mapping for genres, moods, and musical concepts.",
+            "status": "pending",
+            "testStrategy": "Unit tests with various text inputs and validation of tokenization accuracy"
+          },
+          {
+            "id": 2,
+            "title": "Create Genre and Mood Classification System",
+            "description": "Develop machine learning models to classify genre and mood from processed text tokens",
+            "dependencies": [
+              2
+            ],
+            "details": "Train classification models on music description datasets, implement confidence scoring, handle multi-genre and complex mood combinations.",
+            "status": "pending",
+            "testStrategy": "Test classification accuracy against labeled datasets and edge cases"
+          },
+          {
+            "id": 3,
+            "title": "Build Tempo and Key Extraction Engine",
+            "description": "Extract specific musical parameters like BPM and key signatures from text descriptions",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement regex patterns for explicit musical parameters, create inference algorithms for implicit tempo/key hints, validate extracted parameters against musical constraints.",
+            "status": "pending",
+            "testStrategy": "Test extraction accuracy with various explicit and implicit parameter descriptions"
+          },
+          {
+            "id": 4,
+            "title": "Implement Caching and Optimization Layer",
+            "description": "Add Redis-based caching for processed prompts and implement batch processing",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Cache tokenization results, implement prompt similarity detection, enable batch processing for multiple requests, optimize spaCy pipeline for speed"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Neural Network Architecture for MIDI Generation",
+        "description": "Design and implement the core AI model using TensorFlow/PyTorch that generates 4-bar MIDI snippets for different instruments and song sections",
+        "details": "Build the deep learning architecture that takes extracted musical parameters and generates appropriate MIDI patterns. Implement hybrid LSTM+Transformer architecture with VAE components for creative generation. Support multi-track generation (drums, bass, chords, melody) with attention mechanisms to maintain musical coherence between tracks.",
+        "testStrategy": "Train model with diverse music datasets, validate generated MIDI quality, test multi-track coherence, benchmark generation speed",
+        "priority": "high",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design LSTM-Transformer Hybrid Architecture",
+            "description": "Create the core neural network architecture combining LSTM memory with Transformer attention",
+            "dependencies": [],
+            "details": "Implement hybrid model with LSTM for temporal sequence modeling and Transformer attention for long-range dependencies. Design multi-head attention mechanism for track relationships.",
+            "status": "pending",
+            "testStrategy": "Unit tests for model architecture, gradient flow validation, memory usage benchmarks"
+          },
+          {
+            "id": 2,
+            "title": "Implement Multi-Track Generation System",
+            "description": "Build system for generating synchronized MIDI tracks for different instruments",
+            "dependencies": [
+              2
+            ],
+            "details": "Create separate model heads for drums, bass, chords, and melody generation. Implement cross-track attention to ensure musical coherence between parts.",
+            "status": "pending",
+            "testStrategy": "Test multi-track synchronization, validate musical coherence between generated parts"
+          },
+          {
+            "id": 3,
+            "title": "Add VAE Components for Creative Diversity",
+            "description": "Integrate Variational Autoencoder components to enable creative variation in generated patterns",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement VAE latent space for pattern variation, add sampling strategies for creative diversity while maintaining musical quality.",
+            "status": "pending",
+            "testStrategy": "Test generation diversity, validate latent space interpolation, measure creative quality"
+          },
+          {
+            "id": 4,
+            "title": "Implement Model Evaluation Suite",
+            "description": "Create comprehensive evaluation system for generated MIDI quality",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Pitch distribution analysis, rhythm accuracy measurement, harmonic progression validation, style consistency scoring"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Music Theory Rules and Constraint System",
+        "description": "Implement comprehensive music theory validation and constraint enforcement to ensure generated MIDI follows proper musical rules",
+        "details": "Build a rule engine that validates and corrects generated MIDI against music theory principles. Implement harmonic progression rules, rhythm pattern validation, voice leading constraints, and genre-specific musical conventions. Create post-processing filters that can adjust generated content to meet musical standards.",
+        "testStrategy": "Test rule validation against known musical examples, verify constraint enforcement across different genres, validate post-processing corrections",
+        "priority": "high",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Harmonic Progression Validation",
+            "description": "Create system to validate and correct chord progressions according to music theory",
+            "dependencies": [],
+            "details": "Build chord progression analyzer, implement common progression patterns, create correction algorithms for invalid harmonic sequences.",
+            "status": "pending",
+            "testStrategy": "Test with various chord progressions, validate corrections against music theory rules"
+          },
+          {
+            "id": 2,
+            "title": "Build Rhythm Pattern Constraint Engine",
+            "description": "Implement rhythm validation and timing constraint system",
+            "dependencies": [],
+            "details": "Create rhythm pattern analyzer, implement time signature validation, build quantization and swing correction algorithms.",
+            "status": "pending",
+            "testStrategy": "Test rhythm validation across different time signatures and genres"
+          },
+          {
+            "id": 3,
+            "title": "Create Voice Leading and Counterpoint Rules",
+            "description": "Implement advanced music theory rules for multi-voice compositions",
+            "dependencies": [
+              2
+            ],
+            "details": "Build voice leading analyzer, implement counterpoint rules, create melody harmonization constraints.",
+            "status": "pending",
+            "testStrategy": "Test voice leading validation with complex multi-part compositions"
+          },
+          {
+            "id": 4,
+            "title": "Build Genre-Specific Theory Database",
+            "description": "Create comprehensive database of music theory rules for each genre",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Jazz: extended chords, modal interchange; Classical: counterpoint rules, voice leading; EDM: drop structures, build-up patterns; Rock: power chord progressions, pentatonic scales"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Song Structure and MIDI Export System",
+        "description": "Develop the full track generation system that combines snippets into complete songs and integrates with the existing Ableton Live MIDI processing pipeline",
+        "details": "Create the orchestration layer that takes 4-bar snippets and assembles them into complete song structures (intro, verse, chorus, bridge, outro). Implement arrangement algorithms that determine section order and repetition. Build the MIDI export pipeline that integrates with existing Ableton Live processing for seamless workflow integration.",
+        "testStrategy": "Test complete song generation with various structures, validate MIDI export compatibility, test Ableton Live integration",
+        "priority": "high",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Song Structure Planning Algorithm",
+            "description": "Create intelligent system for determining complete song arrangements from genre and mood parameters",
+            "dependencies": [],
+            "details": "Implement song structure templates for different genres, create dynamic arrangement algorithms, build section transition logic.",
+            "status": "pending",
+            "testStrategy": "Test structure generation across multiple genres, validate section flow and transitions"
+          },
+          {
+            "id": 2,
+            "title": "Build Snippet Assembly and Arrangement Engine",
+            "description": "Develop system to combine 4-bar snippets into complete song sections with proper transitions",
+            "dependencies": [
+              2
+            ],
+            "details": "Create snippet concatenation algorithms, implement smooth transition generation, build dynamic arrangement based on energy curves.",
+            "status": "pending",
+            "testStrategy": "Test snippet assembly quality, validate transition smoothness, measure arrangement coherence"
+          },
+          {
+            "id": 3,
+            "title": "Implement Ableton Live MIDI Export Integration",
+            "description": "Build seamless integration with existing Ableton Live MIDI processing pipeline",
+            "dependencies": [
+              3
+            ],
+            "details": "Create MIDI file export with proper timing and channel assignment, implement Ableton Live project template generation, build track naming and organization system.",
+            "status": "pending",
+            "testStrategy": "Test MIDI export compatibility, validate Ableton Live project creation, test workflow integration"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Develop Virtual Instrument Matching System",
+        "description": "Create a system that automatically selects and applies appropriate virtual instruments (VSTs) to the generated MIDI tracks based on genre and mood.",
+        "details": "Build a VST matching system that maps generated MIDI tracks to appropriate virtual instruments in Ableton Live:\n\n1. Create a database of VST instruments categorized by genre, mood, and instrument type\n2. Implement a matching algorithm that selects VSTs based on the song's genre/mood\n3. Develop preset selection logic for each VST based on the track's characteristics\n4. Integrate with Ableton Live to automatically load selected VSTs\n5. Support both built-in Ableton instruments and external VST plugins\n\nDatabase schema:\n```sql\nCREATE TABLE vst_presets (\n    id INTEGER PRIMARY KEY,\n    name TEXT,\n    instrument_type TEXT,  -- 'drums', 'bass', 'keys', 'synth', etc.\n    genre TEXT,\n    mood TEXT,\n    vst_name TEXT,\n    preset_path TEXT,\n    parameters JSON\n);\n```\n\nMatching algorithm:\n```python\nclass VSTMatcher:\n    def __init__(self, db_connection):\n        self.db = db_connection\n        self.ableton = AbletonInterface()\n        \n    def find_matching_vst(self, track_type, genre, mood):\n        # Query database for appropriate VST preset\n        query = \"\"\"SELECT * FROM vst_presets \n                  WHERE instrument_type = ? AND genre = ? AND mood = ?\n                  ORDER BY relevance DESC LIMIT 1\"\"\"\n        result = self.db.execute(query, (track_type, genre, mood)).fetchone()\n        return result\n        \n    def apply_vst_to_track(self, track_id, midi_data, genre, mood):\n        track_type = self.determine_track_type(midi_data)\n        vst_preset = self.find_matching_vst(track_type, genre, mood)\n        \n        # Load VST into Ableton track\n        self.ableton.load_instrument(track_id, vst_preset['vst_name'])\n        self.ableton.load_preset(track_id, vst_preset['preset_path'])\n        \n        # Apply custom parameters if needed\n        if vst_preset['parameters']:\n            self.ableton.set_parameters(track_id, vst_preset['parameters'])\n            \n        return vst_preset['id']\n```\n\nUtilize the existing Ableton Live integration to load instruments and presets.",
+        "testStrategy": "1. Unit tests for VST database queries (verify correct instrument selection)\n2. Integration tests with Ableton Live (confirm VSTs load correctly)\n3. Test genre-to-instrument mappings (verify jazz gets appropriate instruments)\n4. Test mood-based preset selection (confirm 'sad' gets appropriate sounds)\n5. Performance testing (VST loading time should be under 5 seconds per track)\n6. Test with edge cases (unusual genre combinations, extreme moods)\n7. Verify compatibility with both built-in and external VSTs",
+        "priority": "high",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Enhance VST Database Schema",
+            "details": "Extended schema:\n```sql\nCREATE TABLE vst_presets (\n    id INTEGER PRIMARY KEY,\n    name TEXT,\n    instrument_type TEXT,\n    genre TEXT,\n    mood TEXT,\n    vst_name TEXT,\n    preset_path TEXT,\n    cpu_usage REAL,  -- NEW: CPU 사용률\n    latency INTEGER,  -- NEW: 레이턴시\n    frequency_range TEXT,  -- NEW: 주파수 범위\n    polyphony INTEGER,  -- NEW: 동시 발음 수\n    tags TEXT,  -- NEW: 검색용 태그\n    user_rating REAL,  -- NEW: 사용자 평점\n    parameters JSON\n);\n\nCREATE INDEX idx_vst_performance ON vst_presets(cpu_usage, latency);\nCREATE INDEX idx_vst_tags ON vst_presets(tags);\n```"
+          },
+          {
+            "id": 2,
+            "title": "Implement Advanced Matching Algorithm",
+            "description": "Develop a more sophisticated matching algorithm that considers additional factors beyond genre and mood.",
+            "dependencies": [
+              2
+            ],
+            "details": "Incorporate MIDI analysis to determine note range, polyphony, and rhythmic complexity. Use these factors along with the enhanced database schema to improve VST selection accuracy.",
+            "status": "pending",
+            "testStrategy": "Create a test suite with various MIDI inputs and expected VST matches. Measure the algorithm's accuracy and performance."
+          },
+          {
+            "id": 3,
+            "title": "Develop Dynamic Preset Generation",
+            "description": "Create a system that dynamically generates or adjusts VST presets based on track characteristics.",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement a preset modification algorithm that adjusts parameters like envelope, filter settings, and effects based on the MIDI data and desired mood. This should work with both built-in Ableton instruments and external VST plugins.",
+            "status": "pending",
+            "testStrategy": "Test the system with various input scenarios and evaluate the musical appropriateness of the generated presets."
+          },
+          {
+            "id": 4,
+            "title": "Enhance Ableton Live Integration",
+            "description": "Expand the existing Ableton Live integration to support more advanced VST and preset loading capabilities.",
+            "dependencies": [
+              4
+            ],
+            "details": "Implement functions to load and configure both built-in Ableton instruments and external VST plugins. Develop methods for real-time parameter adjustment and preset switching.",
+            "status": "pending",
+            "testStrategy": "Create an automated test suite that interacts with Ableton Live, loading various VSTs and presets, and verifying correct application."
+          },
+          {
+            "id": 5,
+            "title": "Implement User Feedback and Learning System",
+            "description": "Create a mechanism for users to provide feedback on VST selections, and use this data to improve future matches.",
+            "dependencies": [
+              5
+            ],
+            "details": "Develop a user interface for rating VST selections. Implement a machine learning model that adjusts matching preferences based on user feedback. Integrate this system with the existing matching algorithm.",
+            "status": "pending",
+            "testStrategy": "Simulate user feedback scenarios and verify that the system learns and improves its VST selections over time."
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Implement Automatic Effects Chain System",
+        "description": "Develop a system that automatically applies appropriate effect chains to each track based on instrument type, genre, and mood.",
+        "details": "Create an effects chain automation system that applies appropriate audio effects to each track:\n\n1. Build a database of effect chain templates for different track types and genres\n2. Implement an algorithm to select and customize effect chains based on track characteristics\n3. Develop parameter adjustment logic for each effect (reverb time, delay feedback, etc.)\n4. Integrate with Ableton Live to automatically add and configure effects\n5. Support common effect types: EQ, compression, reverb, delay, etc.\n\nDatabase schema:\n```sql\nCREATE TABLE effect_chains (\n    id INTEGER PRIMARY KEY,\n    name TEXT,\n    track_type TEXT,  -- 'drums', 'bass', 'keys', etc.\n    genre TEXT,\n    mood TEXT\n);\n\nCREATE TABLE effect_parameters (\n    id INTEGER PRIMARY KEY,\n    chain_id INTEGER,\n    effect_type TEXT,  -- 'reverb', 'delay', 'eq', etc.\n    position INTEGER,  -- Order in chain\n    parameters JSON,\n    FOREIGN KEY (chain_id) REFERENCES effect_chains(id)\n);\n```\n\nImplementation:\n```python\nclass EffectsChainEngine:\n    def __init__(self, db_connection):\n        self.db = db_connection\n        self.ableton = AbletonInterface()\n        \n    def get_effect_chain(self, track_type, genre, mood):\n        # Query database for appropriate effect chain\n        query = \"\"\"SELECT * FROM effect_chains \n                  WHERE track_type = ? AND genre = ? AND mood = ?\n                  ORDER BY relevance DESC LIMIT 1\"\"\"\n        chain = self.db.execute(query, (track_type, genre, mood)).fetchone()\n        \n        # Get effects for this chain\n        effects_query = \"\"\"SELECT * FROM effect_parameters \n                         WHERE chain_id = ? ORDER BY position\"\"\"\n        effects = self.db.execute(effects_query, (chain['id'],)).fetchall()\n        \n        return {'chain': chain, 'effects': effects}\n        \n    def apply_effects_to_track(self, track_id, track_type, genre, mood):\n        chain_data = self.get_effect_chain(track_type, genre, mood)\n        \n        # Add each effect to the track in Ableton\n        for effect in chain_data['effects']:\n            self.ableton.add_effect(track_id, effect['effect_type'])\n            self.ableton.set_effect_parameters(track_id, effect['effect_type'], effect['parameters'])\n            \n        return chain_data['chain']['id']\n        \n    def customize_effect_parameters(self, effect_params, track_analysis):\n        # Adjust effect parameters based on track analysis\n        # e.g., increase reverb for sparse tracks, add compression for dynamic tracks\n        customized_params = effect_params.copy()\n        \n        # Apply track-specific customizations\n        if track_analysis['density'] < 0.3:\n            customized_params['reverb']['wet'] *= 1.5\n            \n        if track_analysis['dynamic_range'] > 20:\n            customized_params['compressor']['threshold'] -= 3\n            customized_params['compressor']['ratio'] += 1\n            \n        return customized_params\n```\n\nUtilize the existing Ableton Live integration to add and configure effects.",
+        "testStrategy": "1. Unit tests for effect chain selection logic\n2. Integration tests with Ableton Live (verify effects load correctly)\n3. Test genre-specific effect chains (confirm appropriate effects for different genres)\n4. Test parameter customization based on track analysis\n5. Performance testing (effect loading time should be under 3 seconds per track)\n6. A/B testing of different effect chains for the same track\n7. Verify compatibility with both built-in and third-party effects",
+        "priority": "high",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and implement effect chain database schema",
+            "description": "Create SQLite database tables for storing effect chain templates and their parameters",
+            "dependencies": [],
+            "details": "Implement the database schema with tables for effect_chains (storing chain metadata like track_type, genre, mood) and effect_parameters (storing individual effect settings and their position in the chain). Include support for JSON parameter storage and proper foreign key relationships. Add indexes for efficient querying by track_type, genre, and mood combinations.",
+            "status": "pending",
+            "testStrategy": "Write unit tests to verify database creation, insertion of sample effect chains, querying by different criteria, and foreign key constraints. Test JSON parameter storage and retrieval."
+          },
+          {
+            "id": 2,
+            "title": "Build effect chain selection algorithm",
+            "description": "Develop intelligent algorithm to select appropriate effect chains based on track characteristics",
+            "dependencies": [
+              2
+            ],
+            "details": "Create the get_effect_chain() method that queries the database for the most relevant effect chain based on track_type, genre, and mood. Implement fuzzy matching logic for cases where exact matches aren't found. Add relevance scoring to prioritize chains when multiple matches exist. Include fallback chains for common track types.",
+            "status": "pending",
+            "testStrategy": "Test with various combinations of track_type, genre, and mood inputs. Verify fallback behavior when no exact match exists. Test relevance scoring with overlapping criteria."
+          },
+          {
+            "id": 3,
+            "title": "Implement parameter customization engine",
+            "description": "Create system to dynamically adjust effect parameters based on track analysis",
+            "dependencies": [
+              2
+            ],
+            "details": "Build the customize_effect_parameters() method that takes baseline effect parameters and adjusts them based on track characteristics like density, dynamic range, frequency content, and transient detection. Implement rules for adjusting reverb wet/dry based on track sparseness, compression settings based on dynamics, and EQ curves based on frequency analysis. Support parameter scaling and limiting to prevent extreme values.",
+            "status": "pending",
+            "testStrategy": "Test parameter adjustment with tracks of varying density and dynamic range. Verify parameter limits are respected. Test edge cases with extremely sparse or dense tracks."
+          },
+          {
+            "id": 4,
+            "title": "Develop Ableton Live effects integration",
+            "description": "Create interface to add and configure effects in Ableton Live tracks",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Implement the apply_effects_to_track() method that interfaces with Ableton Live API to add effects to tracks and set their parameters. Handle effect creation order, parameter mapping between database format and Ableton's parameter names, and error handling for unavailable effects. Support common effects: EQ Eight, Compressor, Reverb, Delay, Saturator, and Auto Filter.",
+            "status": "pending",
+            "testStrategy": "Integration tests with Ableton Live API to verify effects are added in correct order. Test parameter setting for each effect type. Verify error handling when effects are unavailable."
+          },
+          {
+            "id": 5,
+            "title": "Create effect chain template library",
+            "description": "Build comprehensive library of pre-configured effect chains for different scenarios",
+            "dependencies": [
+              2
+            ],
+            "details": "Populate the database with professional-quality effect chain templates covering various combinations of track types (drums, bass, keys, vocals, leads), genres (electronic, rock, jazz, classical, hip-hop), and moods (energetic, melancholic, aggressive, ambient). Include detailed parameter settings for each effect in the chain, with variations for different use cases. Document rationale for each chain's design.",
+            "status": "pending",
+            "testStrategy": "Validate each template chain can be loaded and applied successfully. Test coverage across all track type/genre/mood combinations. A/B test chains against reference tracks."
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Implement AI Mixing and Mastering Engine",
+        "description": "Create an AI-powered system for automatic mixing and mastering of the generated tracks to achieve professional sound quality.",
+        "details": "Implement an AI-based mixing and mastering system that balances tracks and applies professional-grade audio processing:\n\n1. Develop track analysis algorithms to detect frequency content, dynamics, and potential issues\n2. Implement automatic volume balancing between tracks\n3. Create intelligent panning algorithms for spatial distribution\n4. Build EQ adjustment system for frequency balance\n5. Implement mastering chain with compression, limiting, and stereo enhancement\n6. Develop final rendering system for high-quality audio output\n\nMixing engine implementation:\n```python\nclass AIMixingEngine:\n    def __init__(self):\n        self.ableton = AbletonInterface()\n        self.analyzer = AudioAnalyzer()\n        \n    def analyze_tracks(self, project_id):\n        # Analyze all tracks in the project\n        tracks = self.ableton.get_tracks(project_id)\n        analysis = {}\n        \n        for track in tracks:\n            audio = self.ableton.render_track_audio(track['id'])\n            analysis[track['id']] = self.analyzer.analyze_audio(audio)\n            \n        return analysis\n        \n    def balance_volumes(self, project_id, analysis):\n        # Set appropriate volume levels for each track\n        tracks = self.ableton.get_tracks(project_id)\n        \n        # Calculate target volumes based on track type and analysis\n        for track in tracks:\n            if track['type'] == 'kick':\n                target_db = -6\n            elif track['type'] == 'bass':\n                target_db = -8\n            elif track['type'] == 'lead':\n                target_db = -7\n            else:\n                target_db = -10\n                \n            current_db = analysis[track['id']]['rms_level']\n            gain_adjustment = target_db - current_db\n            \n            self.ableton.set_track_volume(track['id'], gain_adjustment)\n            \n    def apply_panning(self, project_id):\n        # Set appropriate panning for spatial distribution\n        tracks = self.ableton.get_tracks(project_id)\n        \n        # Define panning strategy based on track type\n        for track in tracks:\n            if track['type'] == 'kick' or track['type'] == 'bass':\n                pan = 0  # Center\n            elif track['type'] == 'hi-hat':\n                pan = 0.3  # Slightly right\n            elif track['type'] == 'snare':\n                pan = -0.1  # Slightly left\n            else:\n                # Distribute other elements across the stereo field\n                pan = (hash(track['id']) % 100) / 100 * 1.6 - 0.8  # Range: -0.8 to 0.8\n                \n            self.ableton.set_track_panning(track['id'], pan)\n            \n    def apply_master_chain(self, project_id):\n        # Apply mastering effects to the master track\n        master_id = self.ableton.get_master_track(project_id)\n        \n        # Add mastering chain: EQ → Compressor → Limiter\n        self.ableton.add_effect(master_id, 'eq8')\n        self.ableton.set_effect_parameters(master_id, 'eq8', {\n            'low_cut': 30,\n            'high_shelf': {'freq': 10000, 'gain': 1.5}\n        })\n        \n        self.ableton.add_effect(master_id, 'compressor')\n        self.ableton.set_effect_parameters(master_id, 'compressor', {\n            'threshold': -18,\n            'ratio': 2.5,\n            'attack': 5,\n            'release': 50\n        })\n        \n        self.ableton.add_effect(master_id, 'limiter')\n        self.ableton.set_effect_parameters(master_id, 'limiter', {\n            'ceiling': -0.3,\n            'gain': 3,\n            'release': 10\n        })\n        \n    def render_final_audio(self, project_id, output_path):\n        # Render the final mixed and mastered audio\n        return self.ableton.render_project(project_id, output_path)\n```\n\nUtilize librosa and soundfile libraries for audio analysis and processing.",
+        "testStrategy": "1. Unit tests for audio analysis algorithms\n2. Integration tests with Ableton Live (verify mixing parameters are applied)\n3. A/B testing against professional mixes (compare quality)\n4. Test with different genre templates (verify appropriate mixing for different styles)\n5. Performance testing (mixing process should complete within 2-3 minutes)\n6. Frequency spectrum analysis of final output (verify balanced frequency response)\n7. Loudness measurement (verify commercial-level loudness without distortion)\n8. Test rendering in different formats (WAV, MP3) and quality settings",
+        "priority": "medium",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and implement audio analysis module for track frequency and dynamics detection",
+            "description": "Create a comprehensive audio analysis system using librosa to detect frequency content, RMS levels, peak levels, spectral characteristics, and dynamic range of individual tracks for intelligent mixing decisions.",
+            "dependencies": [],
+            "details": "Build AudioAnalyzer class that uses librosa for spectral analysis (STFT, spectral centroid, rolloff), dynamic analysis (RMS, peak detection, crest factor), and frequency content analysis (FFT, band energy distribution). Include methods for detecting problematic frequencies, resonances, and masking issues between tracks.",
+            "status": "pending",
+            "testStrategy": "Unit tests with synthetic audio signals of known characteristics, integration tests with real track samples, validation against professional mixing reference tracks"
+          },
+          {
+            "id": 2,
+            "title": "Implement intelligent volume balancing and gain staging system",
+            "description": "Develop an automatic volume balancing algorithm that analyzes track types, frequency content, and musical role to set appropriate levels and maintain proper headroom throughout the mix.",
+            "dependencies": [
+              2
+            ],
+            "details": "Create balance_volumes method that categorizes tracks by type (kick, bass, lead, percussion, etc.), analyzes their frequency content and perceived loudness using LUFS/RMS measurements, and applies intelligent gain adjustments. Implement headroom management to prevent clipping and maintain -6dB peak headroom for mastering.",
+            "status": "pending",
+            "testStrategy": "Test with various genre-specific track combinations, validate against professional mixing standards, A/B testing with manually mixed reference tracks"
+          },
+          {
+            "id": 3,
+            "title": "Build spatial positioning and panning automation engine",
+            "description": "Create an intelligent panning system that distributes tracks across the stereo field based on frequency content, track type, and psychoacoustic principles to achieve width and clarity.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement apply_panning method with frequency-based panning decisions, avoiding phase issues in low frequencies. Include stereo width analysis, correlation checking, and intelligent placement algorithms that prevent masking. Consider mono compatibility and implement Haas effect for enhanced spatial perception.",
+            "status": "pending",
+            "testStrategy": "Test stereo imaging with goniometer analysis, verify mono compatibility, validate against professional mixing spatial standards"
+          },
+          {
+            "id": 4,
+            "title": "Develop adaptive EQ and frequency balance correction system",
+            "description": "Build an intelligent EQ system that analyzes the overall frequency spectrum and applies corrective EQ to individual tracks and the master bus to achieve professional tonal balance.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Create frequency balance analyzer that compares mix spectrum to reference curves for different genres. Implement adaptive EQ that identifies and corrects frequency buildups, resonances, and gaps. Include dynamic EQ capabilities for frequency-dependent compression and surgical corrections.",
+            "status": "pending",
+            "testStrategy": "Spectral analysis comparison with reference tracks, A/B testing with professional mixes, frequency response measurements"
+          },
+          {
+            "id": 5,
+            "title": "Implement mastering chain with compression, limiting, and final rendering",
+            "description": "Create a professional mastering chain with multiband compression, stereo enhancement, harmonic excitation, and transparent limiting, plus high-quality audio rendering system.",
+            "dependencies": [
+              3,
+              4,
+              5
+            ],
+            "details": "Build apply_master_chain method with genre-specific mastering presets. Implement multiband compressor for frequency-specific dynamics control, stereo enhancer for width control, soft-knee limiter with look-ahead for transparent loudness maximization. Include dithering and sample rate conversion for final rendering at various quality levels (MP3, WAV, FLAC).",
+            "status": "pending",
+            "testStrategy": "LUFS loudness compliance testing, A/B comparison with commercially mastered tracks, null testing for transparency validation"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "title": "Implement 4-Bar Snippet Generation and Assembly System",
+        "description": "Develop a system for generating and assembling 4-bar musical snippets into complete song structures, enabling modular song creation.",
+        "details": "Create a modular song assembly system that generates and combines 4-bar snippets into complete songs:\n\n1. Implement song structure templates for different genres (verse-chorus-verse-chorus-bridge-chorus, etc.)\n2. Develop algorithms for generating coherent 4-bar snippets for each section type\n3. Create transition generation for smooth connections between sections\n4. Build a system to assemble snippets into a complete song arrangement\n5. Implement variation generation to avoid repetitiveness\n\nImplementation:\n```python\nclass SnippetAssemblyEngine:\n    def __init__(self):\n        self.midi_generator = MIDIGenerationEngine()\n        self.ableton = AbletonInterface()\n        \n    def get_song_structure(self, genre, length='medium'):\n        # Define song structure based on genre and desired length\n        structures = {\n            'pop': {\n                'short': ['intro', 'verse', 'chorus', 'verse', 'chorus', 'outro'],\n                'medium': ['intro', 'verse', 'chorus', 'verse', 'chorus', 'bridge', 'chorus', 'outro'],\n                'long': ['intro', 'verse', 'pre-chorus', 'chorus', 'verse', 'pre-chorus', 'chorus', 'bridge', 'chorus', 'chorus', 'outro']\n            },\n            'edm': {\n                'short': ['intro', 'build', 'drop', 'breakdown', 'build', 'drop', 'outro'],\n                'medium': ['intro', 'build', 'drop', 'breakdown', 'build', 'drop', 'breakdown', 'final-drop', 'outro'],\n                'long': ['intro', 'atmosphere', 'build', 'drop', 'breakdown', 'build', 'drop', 'breakdown', 'build', 'final-drop', 'outro']\n            },\n            # Add more genre structures\n        }\n        \n        return structures.get(genre, structures['pop'])[length]\n        \n    def generate_section_snippets(self, params, section_type):\n        # Generate 4-bar snippets for each track in this section\n        tracks = ['drums', 'bass', 'chords', 'melody']\n        snippets = {}\n        \n        for track in tracks:\n            snippets[track] = self.midi_generator.generate_snippet(\n                params, section_type, track_type=track, length=4\n            )\n            \n        return snippets\n        \n    def generate_transition(self, from_section, to_section, params):\n        # Generate transition between sections (e.g., drum fill)\n        if from_section in ['verse', 'breakdown'] and to_section in ['chorus', 'drop']:\n            # Generate drum fill for impact\n            return self.midi_generator.generate_snippet(\n                params, 'fill', track_type='drums', length=1\n            )\n        return None\n        \n    def assemble_song(self, prompt, length='medium'):\n        # Generate and assemble complete song from snippets\n        params = self.midi_generator.analyze_prompt(prompt)\n        structure = self.get_song_structure(params['genre'], length)\n        \n        # Create project in Ableton\n        project_id = self.ableton.create_project(params['tempo'])\n        tracks = self.ableton.create_tracks(project_id, ['drums', 'bass', 'chords', 'melody'])\n        \n        current_position = 0\n        for i, section in enumerate(structure):\n            # Generate snippets for this section\n            snippets = self.generate_section_snippets(params, section)\n            \n            # Add snippets to tracks\n            for track_name, track_id in tracks.items():\n                self.ableton.add_midi_clip(track_id, current_position, snippets[track_name])\n            \n            # Add transition if needed\n            if i < len(structure) - 1:\n                transition = self.generate_transition(section, structure[i+1], params)\n                if transition:\n                    self.ableton.add_midi_clip(tracks['drums'], current_position + 4, transition)\n                    current_position += 1  # 1-bar transition\n            \n            current_position += 4  # 4-bar section\n            \n        return project_id\n```\n\nUtilize the existing MIDI processing system and Ableton Live integration.",
+        "testStrategy": "1. Unit tests for song structure generation\n2. Integration tests for snippet assembly (verify sections connect properly)\n3. Test with different genres (confirm appropriate structures for each genre)\n4. Test transitions between sections (verify smooth connections)\n5. Performance testing (assembly process should complete within 1 minute)\n6. Musical coherence testing (verify sections work together harmonically)\n7. Test with different length settings (short, medium, long songs)\n8. Verify correct positioning of snippets in the timeline",
+        "priority": "high",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Song Structure Template System",
+            "description": "Develop a flexible system for defining and managing song structure templates for different genres and lengths.",
+            "dependencies": [],
+            "details": "Expand the get_song_structure method to include more genres and allow for custom structure definitions. Implement a data structure to store and retrieve song templates efficiently.",
+            "status": "pending",
+            "testStrategy": "Create unit tests for various genre and length combinations, ensuring correct structure retrieval."
+          },
+          {
+            "id": 2,
+            "title": "Enhance 4-Bar Snippet Generation Algorithm",
+            "description": "Improve the generate_section_snippets method to create more coherent and genre-specific 4-bar snippets for each section type.",
+            "dependencies": [],
+            "details": "Refine the MIDI generation engine to consider section-specific characteristics (e.g., verse vs. chorus). Implement advanced music theory rules for better harmonic and melodic coherence.",
+            "status": "pending",
+            "testStrategy": "Develop a set of musical quality metrics and test generated snippets against these criteria."
+          },
+          {
+            "id": 3,
+            "title": "Develop Advanced Transition Generation System",
+            "description": "Enhance the generate_transition method to create smoother and more varied transitions between different section types.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Implement multiple transition types (e.g., drum fills, melodic bridges, harmonic modulations) and create a decision system to choose appropriate transitions based on musical context.",
+            "status": "pending",
+            "testStrategy": "Create a suite of tests to verify transition coherence and appropriateness for different section combinations."
+          },
+          {
+            "id": 4,
+            "title": "Optimize Song Assembly Process",
+            "description": "Refactor and optimize the assemble_song method for improved efficiency and flexibility in creating complete song arrangements.",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Implement parallel processing for snippet generation, improve memory management for large projects, and add support for real-time arrangement adjustments.",
+            "status": "pending",
+            "testStrategy": "Perform benchmarking tests on song assembly process for various genres and lengths, ensuring optimal performance."
+          },
+          {
+            "id": 5,
+            "title": "Implement Variation Generation System",
+            "description": "Develop a system to generate variations of snippets and sections to avoid repetitiveness in the assembled song.",
+            "dependencies": [
+              3,
+              5
+            ],
+            "details": "Create algorithms for subtle variations in rhythm, melody, and harmony while maintaining overall coherence. Integrate variation generation into the song assembly process.",
+            "status": "pending",
+            "testStrategy": "Analyze generated songs for repetitiveness using signal processing techniques and verify the effectiveness of variations."
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "title": "Implement Seed-Based Expansion System",
+        "description": "Develop a system that can expand existing musical ideas (chord progressions, melodies) into complete 4-bar snippets and full songs.",
+        "details": "Create a seed-based expansion system that can take existing musical ideas and develop them into complete songs:\n\n1. Implement MIDI parsing to extract musical information from seed content\n2. Develop algorithms to analyze and understand the musical characteristics of seeds\n3. Create expansion algorithms that generate complementary parts based on seeds\n4. Build style matching to ensure generated content matches the seed's style\n5. Implement variation generation for creating multiple versions from the same seed\n\nImplementation:\n```python\nclass SeedExpansionEngine:\n    def __init__(self):\n        self.midi_parser = MIDIParser()\n        self.midi_generator = MIDIGenerationEngine()\n        self.music_theory = MusicTheoryEngine()\n        \n    def parse_seed(self, midi_data, seed_type='melody'):\n        # Extract musical information from seed MIDI\n        parsed = self.midi_parser.parse(midi_data)\n        \n        # Analyze musical characteristics\n        key = self.music_theory.detect_key(parsed['notes'])\n        rhythm_pattern = self.music_theory.analyze_rhythm(parsed['notes'])\n        density = len(parsed['notes']) / parsed['duration']\n        \n        if seed_type == 'chord':\n            chords = self.music_theory.extract_chords(parsed['notes'])\n            progression = self.music_theory.analyze_progression(chords, key)\n            return {\n                'type': 'chord',\n                'key': key,\n                'progression': progression,\n                'rhythm': rhythm_pattern,\n                'duration': parsed['duration']\n            }\n        else:  # melody\n            contour = self.music_theory.analyze_contour(parsed['notes'])\n            intervals = self.music_theory.analyze_intervals(parsed['notes'])\n            return {\n                'type': 'melody',\n                'key': key,\n                'contour': contour,\n                'intervals': intervals,\n                'rhythm': rhythm_pattern,\n                'density': density,\n                'duration': parsed['duration']\n            }\n        \n    def expand_chord_seed(self, seed_data, style_prompt):\n        # Generate complementary tracks based on chord seed\n        style = self.midi_generator.analyze_prompt(style_prompt)\n        \n        # Use the seed's chord progression to generate other parts\n        bass = self.generate_bass_from_chords(seed_data['progression'], style)\n        melody = self.generate_melody_from_chords(seed_data['progression'], style)\n        drums = self.generate_drums_for_style(style, seed_data['rhythm'])\n        \n        return {\n            'chords': seed_data['progression'],  # Original seed\n            'bass': bass,\n            'melody': melody,\n            'drums': drums\n        }\n        \n    def expand_melody_seed(self, seed_data, style_prompt):\n        # Generate complementary tracks based on melody seed\n        style = self.midi_generator.analyze_prompt(style_prompt)\n        \n        # Derive chord progression that fits the melody\n        chords = self.music_theory.derive_chords_from_melody(\n            seed_data['notes'], seed_data['key']\n        )\n        \n        # Generate other parts based on derived chords and original melody\n        bass = self.generate_bass_from_chords(chords, style)\n        drums = self.generate_drums_for_style(style, seed_data['rhythm'])\n        \n        return {\n            'melody': seed_data,  # Original seed\n            'chords': chords,\n            'bass': bass,\n            'drums': drums\n        }\n        \n    def generate_variations(self, seed_data, count=3):\n        # Generate multiple variations of the seed\n        variations = []\n        \n        for i in range(count):\n            if seed_data['type'] == 'chord':\n                # Vary rhythm, voicing, or add passing chords\n                variation = self.music_theory.vary_chord_progression(\n                    seed_data['progression'],\n                    variation_type=['rhythm', 'voicing', 'passing'][i % 3]\n                )\n            else:  # melody\n                # Vary rhythm, contour, or ornamentation\n                variation = self.music_theory.vary_melody(\n                    seed_data,\n                    variation_type=['rhythm', 'contour', 'ornament'][i % 3]\n                )\n                \n            variations.append(variation)\n            \n        return variations\n```\n\nUtilize the existing MIDI processing system and music theory engine.",
+        "testStrategy": "1. Unit tests for seed parsing (verify correct extraction of musical information)\n2. Integration tests for expansion (verify complementary parts match the seed)\n3. Test with different seed types (melody, chord progression, rhythm)\n4. Test with different style prompts (verify style matching)\n5. Musical coherence testing (verify expanded parts work together)\n6. Test variation generation (verify variations maintain core musical identity)\n7. Performance testing (expansion should complete within 1 minute)\n8. Test with edge cases (very short seeds, complex harmonies, unusual rhythms)",
+        "priority": "medium",
+        "dependencies": [
+          3,
+          7
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement MIDI Parser for Seed Content",
+            "description": "Create a robust MIDI parsing system that can extract and analyze musical information from seed MIDI files, including notes, timing, velocity, and other MIDI events.",
+            "dependencies": [],
+            "details": "Build upon the existing MIDIParser class to extract comprehensive musical data from seed content. This includes parsing note events, timing information, velocity dynamics, control changes, and program changes. The parser should handle both single-track and multi-track MIDI files, identifying the primary musical content (melody or chords) and extracting relevant musical features for analysis.",
+            "status": "pending",
+            "testStrategy": "Create unit tests with various MIDI file types (melody seeds, chord seeds, complex arrangements) and verify correct extraction of notes, timing, velocity, and other MIDI events. Test edge cases like empty tracks, unusual time signatures, and malformed MIDI data."
+          },
+          {
+            "id": 2,
+            "title": "Develop Musical Characteristic Analysis System",
+            "description": "Build algorithms to analyze and understand the musical characteristics of parsed seeds, including key detection, rhythm patterns, harmonic progressions, and melodic contours.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement comprehensive analysis algorithms within the MusicTheoryEngine to detect key signatures, analyze rhythm patterns and groove, identify chord progressions, analyze melodic contours and intervals, calculate note density and phrase structure, and detect stylistic patterns. The system should differentiate between melody and chord seeds and extract appropriate characteristics for each type.",
+            "status": "pending",
+            "testStrategy": "Test with known musical examples where key, rhythm, and harmonic content are well-defined. Verify accuracy of key detection, chord progression analysis, rhythm pattern recognition, and melodic contour analysis. Compare results against music theory ground truth."
+          },
+          {
+            "id": 3,
+            "title": "Create Expansion Algorithms for Complementary Parts",
+            "description": "Develop algorithms that generate musically coherent complementary parts (bass, melody, drums, harmony) based on the analyzed seed characteristics.",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement generation algorithms that create bass lines following chord progressions and maintaining stylistic consistency, generate melodies that complement chord seeds or harmonize with melody seeds, create drum patterns that match the rhythmic feel and style, and develop harmony parts that enrich the musical texture. The algorithms should respect the original seed's musical characteristics while adding creative variations.",
+            "status": "pending",
+            "testStrategy": "Generate complementary parts for various seed types and styles, then evaluate musical coherence, stylistic consistency, and harmonic compatibility. Use both automated metrics (harmony checking, rhythm alignment) and manual review of generated parts."
+          },
+          {
+            "id": 4,
+            "title": "Build Style Matching and Consistency System",
+            "description": "Implement a system that ensures generated content matches the seed's musical style and maintains consistency throughout the expansion process.",
+            "dependencies": [
+              4
+            ],
+            "details": "Create a style analysis and matching system that extracts stylistic features from both the seed and style prompt, maintains consistency in instrumentation, tempo, and feel, adapts generation parameters based on detected style (e.g., jazz voicings, rock power chords), and ensures smooth transitions between seed content and generated parts. The system should handle style blending when the prompt suggests a different style than the seed.",
+            "status": "pending",
+            "testStrategy": "Test with seeds from various musical genres (jazz, rock, classical, electronic) and verify that expanded content maintains stylistic integrity. Evaluate consistency of instrumentation, harmony, rhythm patterns, and overall musical feel."
+          },
+          {
+            "id": 5,
+            "title": "Implement Variation Generation System",
+            "description": "Create a system for generating multiple variations of the same seed, providing creative alternatives while maintaining the core musical identity.",
+            "dependencies": [
+              4,
+              5
+            ],
+            "details": "Develop variation algorithms that can modify rhythm patterns while preserving groove, create chord voicing variations and substitutions, add passing chords and harmonic embellishments, vary melodic contours through ornamentation and rhythmic displacement, and generate multiple arrangement options from the same seed. The system should produce musically distinct yet related variations that offer creative choices to users.",
+            "status": "pending",
+            "testStrategy": "Generate multiple variations for the same seed and verify that each variation is musically distinct yet recognizably related to the original. Test variation quality across different musical styles and seed types. Ensure variations maintain musical coherence and stylistic consistency."
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Implement Rhythm-Focused Pattern Generation",
+        "description": "Develop specialized algorithms for generating genre-specific rhythm patterns, drum fills, and groove variations in 4-bar units.",
+        "details": "Create a rhythm-focused generation system that produces professional-quality drum patterns and groove elements:\n\n1. Build a database of genre-specific rhythm patterns and drum fills\n2. Implement algorithms for generating authentic drum patterns for different genres\n3. Develop drum fill generation for section transitions\n4. Create groove variation algorithms to add human feel and dynamics\n5. Implement bass and rhythm instrument pattern generation that complements drums\n\nImplementation:\n```python\nclass RhythmPatternEngine:\n    def __init__(self):\n        self.pattern_db = RhythmPatternDatabase()\n        self.music_theory = MusicTheoryEngine()\n        \n    def generate_drum_pattern(self, genre, section_type, variation_level=0.3):\n        # Get base pattern from database\n        base_pattern = self.pattern_db.get_pattern(genre, section_type)\n        \n        if variation_level > 0:\n            # Apply variations to make it unique\n            pattern = self.apply_variations(base_pattern, variation_level)\n        else:\n            pattern = base_pattern\n            \n        return pattern\n        \n    def generate_drum_fill(self, genre, intensity=0.7, length=1):\n        # Generate a drum fill for transitions\n        base_fill = self.pattern_db.get_fill(genre, intensity)\n        \n        # Customize fill length\n        if length != 1:\n            fill = self.adjust_fill_length(base_fill, length)\n        else:\n            fill = base_fill\n            \n        return fill\n        \n    def apply_groove(self, pattern, groove_type='swing', amount=0.5):\n        # Apply timing and velocity variations to create groove feel\n        grooved_pattern = pattern.copy()\n        \n        if groove_type == 'swing':\n            # Apply swing timing (delay every second 16th note)\n            for note in grooved_pattern:\n                if note['position'] % 0.5 == 0.25:  # Every second 16th\n                    note['position'] += 0.05 * amount\n                    \n        elif groove_type == 'shuffle':\n            # Apply shuffle timing (delay every third 8th-note triplet)\n            for note in grooved_pattern:\n                if abs(note['position'] % 0.33 - 0.22) < 0.01:  # Middle triplet\n                    note['position'] += 0.03 * amount\n                    \n        # Apply velocity variations based on groove type\n        if groove_type == 'swing':\n            for note in grooved_pattern:\n                if note['position'] % 1.0 < 0.1:  # Emphasize downbeats\n                    note['velocity'] = min(127, note['velocity'] * 1.2)\n                    \n        return grooved_pattern\n        \n    def generate_bass_rhythm(self, drum_pattern, genre, complexity=0.5):\n        # Generate bass rhythm that complements the drum pattern\n        kick_positions = [note['position'] for note in drum_pattern if note['drum'] == 'kick']\n        \n        # Start with kick-aligned bass notes\n        bass_pattern = [{'position': pos, 'duration': 0.25, 'velocity': 100} for pos in kick_positions]\n        \n        # Add additional notes based on genre and complexity\n        if genre == 'funk' and complexity > 0.3:\n            # Add syncopated notes between kicks\n            for i in range(len(kick_positions) - 1):\n                if kick_positions[i+1] - kick_positions[i] >= 0.5:  # If enough space\n                    mid_point = (kick_positions[i] + kick_positions[i+1]) / 2\n                    bass_pattern.append({\n                        'position': mid_point,\n                        'duration': 0.25,\n                        'velocity': 90\n                    })\n                    \n        return bass_pattern\n        \n    def apply_variations(self, pattern, level=0.3):\n        # Apply random variations to a pattern\n        varied = pattern.copy()\n        \n        # Randomly modify some notes\n        for i, note in enumerate(varied):\n            if random.random() < level:\n                # Possible variations: skip note, add ghost note, change velocity\n                variation_type = random.choice(['skip', 'ghost', 'velocity'])\n                \n                if variation_type == 'skip' and note['drum'] != 'kick':\n                    # Remove this note (50% chance)\n                    if random.random() < 0.5:\n                        varied[i] = None\n                        \n                elif variation_type == 'ghost':\n                    # Add ghost note before this note\n                    if i > 0 and varied[i-1] is not None:\n                        ghost_pos = (note['position'] + varied[i-1]['position']) / 2\n                        varied.append({\n                            'position': ghost_pos,\n                            'drum': note['drum'],\n                            'velocity': 50  # Lower velocity for ghost notes\n                        })\n                        \n                elif variation_type == 'velocity':\n                    # Vary velocity\n                    varied[i]['velocity'] = max(30, min(127, \n                        note['velocity'] + random.randint(-20, 20)))\n                        \n        # Remove None entries (skipped notes)\n        varied = [note for note in varied if note is not None]\n        \n        return varied\n```\n\nUtilize the existing MIDI processing system and music theory engine.",
+        "testStrategy": "1. Unit tests for pattern generation (verify correct structure for different genres)\n2. Integration tests with drum fills (verify smooth transitions)\n3. Test groove application (verify timing and velocity variations)\n4. Test with different genres (verify genre-appropriate patterns)\n5. Test bass rhythm generation (verify complementary patterns)\n6. Performance testing (generation should complete within seconds)\n7. Musical quality assessment (compare with reference patterns)\n8. Test variation system (verify unique but consistent patterns)",
+        "priority": "medium",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Enhance RhythmPatternDatabase",
+            "description": "Expand and refine the existing RhythmPatternDatabase to include a comprehensive collection of genre-specific rhythm patterns and drum fills.",
+            "dependencies": [],
+            "details": "Add more genre categories, increase the variety of patterns per genre, and ensure proper tagging for section types (verse, chorus, bridge, etc.). Include a wide range of drum fills with varying intensities.",
+            "status": "pending",
+            "testStrategy": "Verify database completeness by generating patterns for multiple genres and comparing against professional references."
+          },
+          {
+            "id": 2,
+            "title": "Implement Advanced Groove Variation Algorithm",
+            "description": "Develop a sophisticated algorithm to apply human-like groove and feel to generated patterns.",
+            "dependencies": [
+              2
+            ],
+            "details": "Extend the apply_groove method to include more groove types (e.g., 'laid-back', 'rushed', 'half-time'). Implement micro-timing adjustments and velocity variations based on groove type and intensity.",
+            "status": "pending",
+            "testStrategy": "Use audio analysis tools to compare generated grooves against human-played references for timing and dynamics accuracy."
+          },
+          {
+            "id": 3,
+            "title": "Create Intelligent Drum Fill Generator",
+            "description": "Develop an advanced system for generating contextually appropriate drum fills for section transitions.",
+            "dependencies": [
+              2
+            ],
+            "details": "Enhance the generate_drum_fill method to consider the musical context, such as the intensity of the surrounding sections and the overall song structure. Implement fill complexity scaling based on the 'intensity' parameter.",
+            "status": "pending",
+            "testStrategy": "Test fills in various musical contexts, ensuring they provide smooth transitions between sections without disrupting the overall groove."
+          },
+          {
+            "id": 4,
+            "title": "Implement Adaptive Bass Pattern Generation",
+            "description": "Create a system for generating bass patterns that dynamically adapt to and complement the drum rhythms.",
+            "dependencies": [
+              3
+            ],
+            "details": "Expand the generate_bass_rhythm method to consider more genre-specific bass playing techniques. Implement pattern variations that respond to changes in drum complexity and groove type.",
+            "status": "pending",
+            "testStrategy": "Analyze the interplay between generated bass and drum patterns across various genres and complexity levels."
+          },
+          {
+            "id": 5,
+            "title": "Develop 4-Bar Pattern Sequencing System",
+            "description": "Create a higher-level system to generate and arrange 4-bar rhythm units with coherent progressions and variations.",
+            "dependencies": [
+              3,
+              4,
+              5
+            ],
+            "details": "Implement a new method in RhythmPatternEngine that combines drum patterns, fills, and bass patterns into 4-bar sequences. Include logic for creating build-ups, breakdowns, and smooth transitions between different intensity levels.",
+            "status": "pending",
+            "testStrategy": "Generate multiple 4-bar sequences and evaluate their musical coherence and effectiveness in creating dynamic rhythm progressions."
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "title": "Develop Complete End-to-End Pipeline",
+        "description": "Integrate all components into a complete end-to-end pipeline that takes a text prompt and produces a finished song with professional quality.",
+        "details": "Create a unified pipeline that integrates all components into a seamless end-to-end system:\n\n1. Implement the main controller class that orchestrates all components\n2. Develop a unified API for accepting text prompts and returning completed songs\n3. Create progress tracking and error handling throughout the pipeline\n4. Implement caching for intermediate results to improve performance\n5. Build output options for different file formats and project files\n6. Integrate all existing components: MIDI generation, VST matching, effects, mixing, etc.\n\nImplementation:\n```python\nclass AISongGenerationPipeline:\n    def __init__(self):\n        # Initialize all component engines\n        self.midi_engine = MIDIGenerationEngine()\n        self.snippet_engine = SnippetAssemblyEngine()\n        self.vst_matcher = VSTMatcher(db_connection)\n        self.effects_engine = EffectsChainEngine(db_connection)\n        self.mixing_engine = AIMixingEngine()\n        self.seed_engine = SeedExpansionEngine()\n        self.rhythm_engine = RhythmPatternEngine()\n        self.ableton = AbletonInterface()\n        \n    def generate_song(self, prompt, options=None):\n        # Default options\n        if options is None:\n            options = {\n                'length': 'medium',\n                'output_format': 'wav',\n                'include_project': True,\n                'seed': None\n            }\n            \n        # Track progress\n        progress = {'status': 'starting', 'progress': 0}\n        \n        try:\n            # 1. Analyze prompt\n            progress.update({'status': 'analyzing_prompt', 'progress': 5})\n            params = self.midi_engine.analyze_prompt(prompt)\n            \n            # 2. Generate song structure\n            progress.update({'status': 'generating_structure', 'progress': 10})\n            if options['seed']:\n                # Use seed-based expansion\n                seed_data = self.seed_engine.parse_seed(options['seed'])\n                expanded = self.seed_engine.expand_seed(seed_data, prompt)\n                project_id = self.snippet_engine.assemble_from_expanded(expanded, params, options['length'])\n            else:\n                # Generate from scratch\n                project_id = self.snippet_engine.assemble_song(prompt, options['length'])\n                \n            # 3. Apply virtual instruments\n            progress.update({'status': 'applying_instruments', 'progress': 30})\n            tracks = self.ableton.get_tracks(project_id)\n            for track in tracks:\n                self.vst_matcher.apply_vst_to_track(\n                    track['id'], track['midi_data'], params['genre'], params['mood']\n                )\n                \n            # 4. Apply effects\n            progress.update({'status': 'applying_effects', 'progress': 50})\n            for track in tracks:\n                self.effects_engine.apply_effects_to_track(\n                    track['id'], track['type'], params['genre'], params['mood']\n                )\n                \n            # 5. Mix and master\n            progress.update({'status': 'mixing', 'progress': 70})\n            track_analysis = self.mixing_engine.analyze_tracks(project_id)\n            self.mixing_engine.balance_volumes(project_id, track_analysis)\n            self.mixing_engine.apply_panning(project_id)\n            self.mixing_engine.apply_master_chain(project_id)\n            \n            # 6. Render output\n            progress.update({'status': 'rendering', 'progress': 90})\n            output_path = f\"output/{uuid.uuid4()}.{options['output_format']}\"\n            audio_file = self.mixing_engine.render_final_audio(project_id, output_path)\n            \n            # 7. Save project file if requested\n            project_file = None\n            if options['include_project']:\n                project_file = self.ableton.save_project(project_id, f\"output/{uuid.uuid4()}.als\")\n                \n            progress.update({'status': 'complete', 'progress': 100})\n            \n            return {\n                'status': 'success',\n                'audio_file': audio_file,\n                'project_file': project_file,\n                'parameters': params\n            }\n            \n        except Exception as e:\n            progress.update({'status': 'error', 'error': str(e)})\n            return {'status': 'error', 'error': str(e)}\n            \n    def get_progress(self):\n        # Return current progress information\n        return progress\n```\n\nIntegrate with all previously developed components and the existing Ableton Live integration.",
+        "testStrategy": "1. End-to-end integration tests (verify complete pipeline works)\n2. Test with various prompt types (genre-specific, mood-specific, etc.)\n3. Test with seed-based generation (verify expansion works in the pipeline)\n4. Performance testing (full pipeline should complete within 3-7 minutes)\n5. Error handling tests (verify graceful failure and error reporting)\n6. Output quality assessment (verify professional-quality results)\n7. Test different output options (WAV, MP3, with/without project files)\n8. Stress testing with complex prompts and edge cases",
+        "priority": "high",
+        "dependencies": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and Implement Main Pipeline Controller",
+            "description": "Create the core AISongGenerationPipeline class that orchestrates all components and manages the overall workflow from prompt to finished song.",
+            "dependencies": [],
+            "details": "Implement the main controller class with proper initialization of all component engines (MIDI, VST, effects, mixing, etc.). Design the class structure to support extensibility and modularity. Include proper dependency injection patterns and configuration management. Ensure thread-safe operation for concurrent requests.",
+            "status": "pending",
+            "testStrategy": "Unit tests for class initialization and component integration. Mock all sub-engines to test orchestration logic. Integration tests with minimal real components to verify basic flow."
+          },
+          {
+            "id": 2,
+            "title": "Develop Unified API and Progress Tracking",
+            "description": "Build a comprehensive API interface for accepting text prompts and configuration options, with real-time progress tracking and status updates.",
+            "dependencies": [
+              2
+            ],
+            "details": "Create REST/GraphQL API endpoints for song generation requests. Implement WebSocket support for real-time progress updates. Design request/response schemas with validation. Include options for output format, length, seed data, and other parameters. Implement progress tracking system with granular status updates at each pipeline stage.",
+            "status": "pending",
+            "testStrategy": "API endpoint tests with various input scenarios. WebSocket connection tests for progress updates. Load testing for concurrent requests. Validation tests for malformed inputs."
+          },
+          {
+            "id": 3,
+            "title": "Implement Caching and Performance Optimization",
+            "description": "Build a caching system for intermediate results to improve performance and enable quick iterations on similar prompts.",
+            "dependencies": [
+              2
+            ],
+            "details": "Design multi-level caching strategy for MIDI patterns, VST presets, effect chains, and rendered audio segments. Implement cache invalidation logic based on prompt similarity and time. Use Redis or similar for distributed caching. Include memory management to prevent cache overflow. Add cache warming strategies for common patterns.",
+            "status": "pending",
+            "testStrategy": "Performance benchmarks comparing cached vs non-cached operations. Cache hit/miss ratio analysis. Memory usage tests under various load scenarios. Consistency tests for cache invalidation."
+          },
+          {
+            "id": 4,
+            "title": "Build Error Handling and Recovery System",
+            "description": "Create comprehensive error handling throughout the pipeline with graceful degradation and recovery mechanisms.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Implement try-catch blocks at each pipeline stage with specific error types. Design fallback strategies for component failures (e.g., default VST if matcher fails). Add retry logic with exponential backoff for transient errors. Create detailed error logging and user-friendly error messages. Include partial result recovery to salvage work from failed pipelines.",
+            "status": "pending",
+            "testStrategy": "Fault injection tests at each pipeline stage. Recovery mechanism tests with simulated failures. Error message clarity tests. Logging completeness verification."
+          },
+          {
+            "id": 5,
+            "title": "Create Output Management and Format Support",
+            "description": "Implement flexible output options supporting multiple audio formats and project file exports with proper file management.",
+            "dependencies": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "details": "Support multiple output formats (WAV, MP3, FLAC, OGG) with configurable quality settings. Implement Ableton Live project file export (.als) with all tracks, effects, and automation. Create stem export functionality for individual tracks. Add metadata embedding (title, artist, prompt used). Implement file management system with unique naming, cleanup policies, and storage optimization.",
+            "status": "pending",
+            "testStrategy": "Format conversion accuracy tests. Project file integrity tests in Ableton Live. Metadata preservation tests. File system management tests including cleanup and storage limits."
+          },
+          {
+            "id": 6,
+            "title": "Implement Pipeline Benchmarking System",
+            "description": "Create automated benchmarking for each pipeline stage",
+            "dependencies": [
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "details": "Performance regression tests, bottleneck identification, automatic optimization suggestions, performance dashboard"
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "title": "Asynchronous Processing and Queue System",
+        "description": "Implement scalable asynchronous processing for handling long-running generation tasks",
+        "priority": "high",
+        "dependencies": [
+          13
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Celery Task Queue",
+            "description": "Setup Celery with Redis/RabbitMQ for distributed task processing",
+            "details": "Configure Celery workers, implement task routing, setup result backend, create task monitoring dashboard"
+          },
+          {
+            "id": 2,
+            "title": "Build WebSocket Progress Updates",
+            "description": "Real-time progress streaming to clients during generation",
+            "details": "WebSocket server setup, progress event streaming, client reconnection handling, progress state persistence"
+          },
+          {
+            "id": 3,
+            "title": "Implement Partial Result Streaming",
+            "description": "Stream intermediate results for preview during generation",
+            "details": "MIDI chunk streaming, partial audio rendering, incremental preview updates"
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Monitoring and Performance Optimization System",
+        "description": "Comprehensive monitoring, profiling, and optimization infrastructure",
+        "priority": "medium",
+        "dependencies": [
+          13,
+          14
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Prometheus Monitoring",
+            "description": "Setup metrics collection for all pipeline stages",
+            "details": "Generation time metrics, resource usage tracking, error rate monitoring, custom music generation metrics"
+          },
+          {
+            "id": 2,
+            "title": "GPU Memory Optimization",
+            "description": "Optimize model loading and inference for GPU memory efficiency",
+            "details": "Model quantization, dynamic batching, memory pooling, gradient checkpointing"
+          },
+          {
+            "id": 3,
+            "title": "Implement Distributed Processing",
+            "description": "Enable multi-GPU and multi-node processing for scalability",
+            "details": "Model parallelism setup, data parallelism configuration, load balancing algorithms"
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-25T03:10:06.828Z",
+      "updated": "2025-06-25T03:10:06.828Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

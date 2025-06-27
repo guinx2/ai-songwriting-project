@@ -1,0 +1,36 @@
+# Task ID: 5
+# Title: Extend MIDI Generation to Bass, Harmony, and Melody Instruments
+# Status: pending
+# Dependencies: 4
+# Priority: high
+# Description: Expand the MIDI generation engine to support bass lines, harmonic instruments (piano, guitar), and melodic elements with music theory integration
+# Details:
+Create BassGenerator, HarmonyGenerator, and MelodyGenerator classes. Implement music theory rules using music21 for chord progressions, scale generation, and harmonic relationships. Add support for different instrument ranges and playing techniques. Integrate with genre-specific patterns and ensure musical coherence across different instruments.
+
+Pseudo-code:
+```python
+class BassGenerator:
+    def generate_bassline(self, params: MusicParams) -> mido.MidiFile:
+        # Generate bass patterns following chord progressions
+        pass
+
+class HarmonyGenerator:
+    def generate_chords(self, params: MusicParams) -> mido.MidiFile:
+        # Generate piano/guitar chord progressions
+        pass
+
+class MelodyGenerator:
+    def generate_melody(self, params: MusicParams) -> mido.MidiFile:
+        # Generate melodic lines and hooks
+        pass
+
+class MIDIGenerator:
+    def __init__(self):
+        self.drum_gen = DrumGenerator()
+        self.bass_gen = BassGenerator()
+        self.harmony_gen = HarmonyGenerator()
+        self.melody_gen = MelodyGenerator()
+```
+
+# Test Strategy:
+Test each instrument generator independently and in combination. Validate music theory compliance (proper chord progressions, scale adherence). Test cross-instrument harmony and ensure no note conflicts. Verify instrument-specific MIDI channel assignments.

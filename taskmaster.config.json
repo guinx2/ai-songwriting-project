@@ -1,0 +1,33 @@
+{
+  "project": {
+    "name": "guinx2-ai-songwriting-project",
+    "description": "AI 기반 작곡 및 MIDI 생성 프로젝트",
+    "version": "1.0.0"
+  },
+  "tasks": {
+    "categories": [
+      "development",
+      "music-generation",
+      "ai-training",
+      "testing",
+      "documentation"
+    ],
+    "priorities": ["low", "medium", "high", "urgent"],
+    "defaultPriority": "medium"
+  },
+  "integrations": {
+    "ableton": {
+      "enabled": true,
+      "midiOutputPath": "./output/midi/"
+    },
+    "ai": {
+      "enabled": true,
+      "modelsPath": "./src/ai_models/"
+    }
+  },
+  "workflow": {
+    "autoSave": true,
+    "notifications": true,
+    "trackProgress": true
+  }
+} 

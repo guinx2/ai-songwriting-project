@@ -1,0 +1,30 @@
+# Task ID: 3
+# Title: Build Database Schema and Genre Hierarchy System
+# Status: pending
+# Dependencies: 2
+# Priority: high
+# Description: Implement the 3-tier genre classification system with database schema for training data, artist styles, and hierarchical genre relationships
+# Details:
+Create PostgreSQL database with tables for genres (3-level hierarchy), training_dataset, artist_styles, country_genre_variants, and song_title_patterns. Implement genre hierarchy navigation and validation. Create data models using SQLAlchemy ORM. Setup database migrations and seed data for major genres (Hip-hop→Trap→Melodic Trap, Rock→J-Rock→Shibuya-kei, etc.).
+
+Pseudo-code:
+```python
+class Genre(Base):
+    __tablename__ = 'genres'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100))
+    parent_id = Column(Integer, ForeignKey('genres.id'))
+    level = Column(Integer)  # 1=main, 2=sub, 3=style
+    characteristics = Column(JSON)
+
+class TrainingDataset(Base):
+    __tablename__ = 'training_dataset'
+    id = Column(UUID, primary_key=True)
+    artist_name = Column(String(200))
+    country = Column(String(100))
+    genre_level_1 = Column(String(100))
+    # ... other fields
+```
+
+# Test Strategy:
+Test database schema creation and migrations. Validate genre hierarchy queries and navigation. Test data insertion and retrieval with sample genre data. Verify foreign key constraints and data integrity.

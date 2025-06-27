@@ -1,0 +1,37 @@
+# Task ID: 9
+# Title: Develop Song Composition and Timeline System
+# Status: pending
+# Dependencies: 8
+# Priority: medium
+# Description: Create the modular song composition system that allows combining 4-bar snippets into complete song structures with automatic transitions
+# Details:
+Implement SongComposer class for combining snippets into full songs. Create timeline management with drag-and-drop functionality. Add automatic BPM and key matching between sections. Implement fade-in/fade-out transitions and volume control. Support export to DAW formats (.als, .flp, .logic).
+
+Pseudo-code:
+```python
+@dataclass
+class SongStructure:
+    title: str
+    sections: List[SongSection]
+    total_duration: float
+    bpm_changes: List[Tuple[float, int]]
+    key_changes: List[Tuple[float, str]]
+
+@dataclass
+class SongSection:
+    start_time: float
+    end_time: float
+    snippet_id: str
+    module_type: str
+    fade_in: float = 0.0
+    fade_out: float = 0.0
+    volume: float = 1.0
+
+class SongComposer:
+    def create_song(self, snippet_ids: List[str]) -> SongStructure
+    def add_transitions(self, song: SongStructure) -> SongStructure
+    def export_to_daw(self, song: SongStructure, format: str) -> str
+```
+
+# Test Strategy:
+Test song creation with various snippet combinations. Validate timeline calculations and section transitions. Test DAW export functionality with Ableton Live and Logic Pro. Verify BPM and key transition smoothness.

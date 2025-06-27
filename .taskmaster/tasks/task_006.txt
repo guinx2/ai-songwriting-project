@@ -1,0 +1,35 @@
+# Task ID: 6
+# Title: Create Snippet Management and File Output System
+# Status: pending
+# Dependencies: 5
+# Priority: medium
+# Description: Implement the 4-bar snippet management system with structured file output, metadata generation, and library organization
+# Details:
+Create SnippetManager class for saving, loading, and organizing 4-bar MIDI snippets. Implement file naming conventions (e.g., 'dark_boombap_intro_85bpm.mid'). Generate JSON metadata files with generation parameters, quality metrics, and usage tracking. Create directory structure for snippet library organization by module type (intro, verse, chorus, etc.).
+
+Pseudo-code:
+```python
+@dataclass
+class SnippetMetadata:
+    id: str
+    filename: str
+    module_type: str
+    instruments: List[str]
+    genre_path: str
+    tempo: int
+    key: str
+    quality_score: float
+    personal_rating: int
+    usage_count: int
+    tags: List[str]
+    created_at: datetime
+
+class SnippetManager:
+    def save_snippet(self, midi_data: bytes, metadata: SnippetMetadata) -> str
+    def load_snippet(self, snippet_id: str) -> Tuple[bytes, SnippetMetadata]
+    def search_snippets(self, filters: Dict) -> List[SnippetMetadata]
+    def create_variation(self, base_id: str, params: Dict) -> str
+```
+
+# Test Strategy:
+Test snippet saving and loading with various MIDI files. Validate metadata generation and JSON serialization. Test search functionality with different filter criteria. Verify file organization and naming conventions.

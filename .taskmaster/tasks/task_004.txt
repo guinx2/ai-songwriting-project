@@ -1,0 +1,30 @@
+# Task ID: 4
+# Title: Develop Core MIDI Generation Engine for Drums
+# Status: pending
+# Dependencies: 3
+# Priority: high
+# Description: Implement the foundational MIDI generation engine starting with drum pattern generation using mido and music21 libraries
+# Details:
+Install and configure mido, pretty_midi, and music21 libraries. Create DrumGenerator class with genre-specific pattern generation for boom-bap, trap, and other hip-hop styles. Implement 4-bar snippet generation with proper MIDI formatting (480 ticks per quarter note, Standard MIDI File Format 1). Create drum mapping for kick, snare, hi-hat, and percussion elements.
+
+Pseudo-code:
+```python
+class DrumGenerator:
+    def __init__(self):
+        self.drum_map = {
+            'kick': 36, 'snare': 38, 'hihat': 42,
+            'open_hihat': 46, 'crash': 49
+        }
+    
+    def generate_pattern(self, params: MusicParams) -> mido.MidiFile:
+        mid = mido.MidiFile()
+        track = mido.MidiTrack()
+        # Generate 4-bar drum pattern based on genre
+        return mid
+    
+    def create_boom_bap_pattern(self, tempo: int) -> List[MidiMessage]
+    def create_trap_pattern(self, tempo: int) -> List[MidiMessage]
+```
+
+# Test Strategy:
+Generate test MIDI files for different drum patterns and validate in DAW (Ableton Live/Logic Pro). Test tempo accuracy, note timing, and MIDI file format compliance. Verify 4-bar loop seamlessness and genre-appropriate patterns.
